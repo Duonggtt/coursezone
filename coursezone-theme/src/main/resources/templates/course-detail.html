@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:ezy="http://www.ezyplatform.com/thymeleaf/layout"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{ezytheme}">
+<body>
+<div layout:fragment="content">
+    <div class="instructor-section-course">
+        <div class="row align-items-center">
+            <div class="col-md-6 course-title-section animate-x">
+                <h2 class="mb-4 text-white">Course Detail</h2>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a class="text-warning" href="/">Home</a></li>
+                <li class="breadcrumb-item"><a class="text-warning" href="/course">Course</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Course Detail</li>
+            </ol>
+        </nav>
+
+        <div class="row">
+            <div class="col-md-9 mb-4">
+                <h2 class="mt-5 mb-4 fw-bold">Java SpringBoot FullStack</h2>
+                <div class="course-detail-header mb-4">
+                    <div class="course-detail-info">
+                        <div class="d-flex gap-3">
+                        <span class="teacher-img">
+                            <img class="object-fit-cover" src="https://eduma.thimpress.com/demo-main/wp-content/uploads/learn-press-profile/7/e5c6a6fb8aa3864eacaec471611e0470.jpeg" alt="">
+                        </span>
+                            <span class="info-header-teacher">
+                            <small class="fw-bold">Teacher</small>
+                            <p class="m-0 align-items-center">Chu Van Dat</p>
+                        </span>
+                            <span class="info-header-teacher">
+                            <small class="fw-bold">Categories</small>
+                            <p class="m-0 align-items-center">Java</p>
+                        </span>
+                            <span class="info-header-teacher">
+                            <small class="fw-bold">Review</small>
+                            <p class="m-0 align-items-center">4.5 <i class="fa fa-star review-icon"></i></p>
+                        </span>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-4 course-detail-start">
+                        <span class="text-success fw-bold">FREE</span>
+                        <div class="">
+                            <a href="" class="btn btn-warning">START NOW</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-detail-content">
+                    <div class="course-detail-content-img mb-4">
+                        <img src="https://techmaster.vn/resources/image/java-spring-boot-min.jpg" alt="Python course">
+                    </div>
+                    <div class="container mt-4 mb-5">
+                        <ul class="nav nav-tabs" id="courseTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview" type="button" role="tab" aria-controls="overview" aria-selected="true">
+                                    <i class="fas fa-book-open me-2"></i>Overview
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="curriculum-tab" data-bs-toggle="tab" data-bs-target="#curriculum" type="button" role="tab" aria-controls="curriculum" aria-selected="false">
+                                    <i class="fas fa-list me-2"></i>Curriculum
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="instructor-tab" data-bs-toggle="tab" data-bs-target="#instructor" type="button" role="tab" aria-controls="instructor" aria-selected="false">
+                                    <i class="fas fa-user-tie me-2"></i>Instructor
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false">
+                                    <i class="fas fa-star me-2"></i>Reviews
+                                </button>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="courseTabContent">
+                            <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+                                <div class="row mt-4">
+                                    <div class="col-md-8">
+                                        <h4>Course Description</h4>
+                                        <p>A series of Videos from ThimPress, give you a detailed tutorial to create an LMS Website with LearnPress – LMS & Education WordPress Plugin.</p>
+                                        <p>This course is a detailed and easy tutorial to get you all setup and going with the use of LearnPress LMS Plugin. It is a free and simple plugin to help you create an Online Courses Website step by step. The tutorial guides you through the configuration of the plugin, creation of Courses, Lessons, Quizzes, and finally guides you on how to boost up your Website with Premium LearnPress Add-ons brought to you by ThimPress (creator of LearnPress). It also shows how you could configure additional items like the course layouts and featured images.</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h4>Course Features</h4>
+                                        <ul class="list-group">
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <span><i class="fas fa-book me-2"></i>Lectures</span>
+                                                <span class="badge bg-primary rounded-pill">14</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <span><i class="fas fa-question-circle me-2"></i>Quizzes</span>
+                                                <span class="badge bg-primary rounded-pill">1</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <span><i class="fas fa-clock me-2"></i>Duration</span>
+                                                <span>10 weeks</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <span><i class="fas fa-signal me-2"></i>Skill level</span>
+                                                <span>All levels</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <span><i class="fas fa-globe me-2"></i>Language</span>
+                                                <span>English</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <span><i class="fas fa-users me-2"></i>Students</span>
+                                                <span>335</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <span><i class="fas fa-clipboard-check me-2"></i>Assessments</span>
+                                                <span>Yes</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="curriculum" role="tabpanel" aria-labelledby="curriculum-tab">
+                                <h4 class="mt-4 mb-3">Course Curriculum</h4>
+                                <div class="accordion" id="accordionCurriculum">
+                                    <!-- Section 1 -->
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingOne">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                Section 1: Introduction to LearnPress
+                                            </button>
+                                        </h2>
+                                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionCurriculum">
+                                            <div class="accordion-body">
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <span><i class="fas fa-play-circle me-2"></i>Welcome to the course</span>
+                                                        <span class="badge bg-primary rounded-pill">5:00</span>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <span><i class="fas fa-play-circle me-2"></i>What is LearnPress?</span>
+                                                        <span class="badge bg-primary rounded-pill">10:00</span>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <span><i class="fas fa-file-alt me-2"></i>Course objectives</span>
+                                                        <span class="badge bg-secondary rounded-pill">Quiz</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Section 2 -->
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingTwo">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                Section 2: Setting Up LearnPress
+                                            </button>
+                                        </h2>
+                                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionCurriculum">
+                                            <div class="accordion-body">
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <span><i class="fas fa-play-circle me-2"></i>Installing LearnPress</span>
+                                                        <span class="badge bg-primary rounded-pill">15:00</span>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <span><i class="fas fa-play-circle me-2"></i>Configuring basic settings</span>
+                                                        <span class="badge bg-primary rounded-pill">20:00</span>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <span><i class="fas fa-file-alt me-2"></i>Setup quiz</span>
+                                                        <span class="badge bg-secondary rounded-pill">Quiz</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Section 3 -->
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingThird">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThird" aria-expanded="false" aria-controls="collapseThird">
+                                                Section 3: Setting Up LearnPress
+                                            </button>
+                                        </h2>
+                                        <div id="collapseThird" class="accordion-collapse collapse" aria-labelledby="headingThird" data-bs-parent="#accordionCurriculum">
+                                            <div class="accordion-body">
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <span><i class="fas fa-play-circle me-2"></i>Installing LearnPress</span>
+                                                        <span class="badge bg-primary rounded-pill">15:00</span>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <span><i class="fas fa-play-circle me-2"></i>Configuring basic settings</span>
+                                                        <span class="badge bg-primary rounded-pill">20:00</span>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <span><i class="fas fa-file-alt me-2"></i>Setup quiz</span>
+                                                        <span class="badge bg-secondary rounded-pill">Quiz</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Section 4 -->
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingFourth">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourth" aria-expanded="false" aria-controls="collapseFourth">
+                                                Section 4: Setting Up LearnPress
+                                            </button>
+                                        </h2>
+                                        <div id="collapseFourth" class="accordion-collapse collapse" aria-labelledby="headingFourth" data-bs-parent="#accordionCurriculum">
+                                            <div class="accordion-body">
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <span><i class="fas fa-play-circle me-2"></i>Installing LearnPress</span>
+                                                        <span class="badge bg-primary rounded-pill">15:00</span>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <span><i class="fas fa-play-circle me-2"></i>Configuring basic settings</span>
+                                                        <span class="badge bg-primary rounded-pill">20:00</span>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <span><i class="fas fa-file-alt me-2"></i>Setup quiz</span>
+                                                        <span class="badge bg-secondary rounded-pill">Quiz</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Section 5 -->
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingFifth">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFifth" aria-expanded="false" aria-controls="collapseFifth">
+                                                Section 5: Setting Up LearnPress
+                                            </button>
+                                        </h2>
+                                        <div id="collapseFifth" class="accordion-collapse collapse" aria-labelledby="headingFifth" data-bs-parent="#accordionCurriculum">
+                                            <div class="accordion-body">
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <span><i class="fas fa-play-circle me-2"></i>Installing LearnPress</span>
+                                                        <span class="badge bg-primary rounded-pill">15:00</span>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <span><i class="fas fa-play-circle me-2"></i>Configuring basic settings</span>
+                                                        <span class="badge bg-primary rounded-pill">20:00</span>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <span><i class="fas fa-file-alt me-2"></i>Setup quiz</span>
+                                                        <span class="badge bg-secondary rounded-pill">Quiz</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Add more sections as needed -->
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="instructor" role="tabpanel" aria-labelledby="instructor-tab">
+                                <div class="instructor-profile mt-4">
+                                    <div class="row">
+                                        <div class="col-md-2 col-sm-4">
+                                            <img src="https://eduma.thimpress.com/demo-main/wp-content/uploads/learn-press-profile/7/e5c6a6fb8aa3864eacaec471611e0470.jpeg" alt="Keny White" class="">
+                                        </div>
+                                        <div class="col-md-10 col-sm-8 instructor-info">
+                                            <h4 class="mb-1">Keny White</h4>
+                                            <p class="text-muted mb-3">Professor</p>
+                                            <p class="instructor-bio">
+                                                Lorem ipsum dolor sit amet. Qui incidunt dolores non similique ducimus et debitis molestiae. Et autem
+                                                quia eum reprehenderit voluptates est reprehenderit illo est enim perferendis est neque sunt. Nam amet
+                                                sunt aut vero mollitia ut ipsum corporis vel facere eius et quia aspernatur qui fugiat repudiandae. Et
+                                                officiis inventore et quis enim ut quaerat corporis sed reprehenderit odit sit saepe distinctio et
+                                                accusantium repellendus ea enim harum.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                                <h4 class="mt-4 mb-3">Review</h4>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h6>Average Rating</h6>
+                                        <div class="average-rating text-center">
+                                            <h1 class="display-1 fw-bold mb-0">0</h1>
+                                            <div class="stars">
+                                                <i class="far fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                            </div>
+                                            <p>0 rating</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <h6>Detailed Rating</h6>
+                                        <div class="detailed-rating">
+                                            <div class="rating-bar d-flex align-items-center mb-2">
+                                                <span class="me-2">5</span>
+                                                <div class="progress flex-grow-1">
+                                                    <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                                <span class="ms-2">0%</span>
+                                            </div>
+                                            <div class="rating-bar d-flex align-items-center mb-2">
+                                                <span class="me-2">4</span>
+                                                <div class="progress flex-grow-1">
+                                                    <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                                <span class="ms-2">0%</span>
+                                            </div>
+                                            <div class="rating-bar d-flex align-items-center mb-2">
+                                                <span class="me-2">3</span>
+                                                <div class="progress flex-grow-1">
+                                                    <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                                <span class="ms-2">0%</span>
+                                            </div>
+                                            <div class="rating-bar d-flex align-items-center mb-2">
+                                                <span class="me-2">2</span>
+                                                <div class="progress flex-grow-1">
+                                                    <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                                <span class="ms-2">0%</span>
+                                            </div>
+                                            <div class="rating-bar d-flex align-items-center mb-2">
+                                                <span class="me-2">1</span>
+                                                <div class="progress flex-grow-1">
+                                                    <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                                <span class="ms-2">0%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="share-buttons mt-4">
+                    <span class="share-text me-3">Share:</span>
+                    <a href="#" class="share-button facebook" aria-label="Share on Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="share-button twitter" aria-label="Share on Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="share-button pinterest" aria-label="Share on Pinterest">
+                        <i class="fab fa-pinterest-p"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-3 end-0 categories">
+                <h5 class="category-title mt-5 mb-4">ALL COURSES</h5>
+                <div class="mb-4">
+                    <ul>
+                        <li class="course-list"><a href=""> <i class="fa fa-hashtag text-warning"></i> Java SpringBoot FullStack</a></li>
+                        <li class="course-list"><a href=""> <i class="fa fa-hashtag text-warning"></i> PHP FullStack</a></li>
+                        <li class="course-list"><a href=""> <i class="fa fa-hashtag text-warning"></i> Frontend With VueJs</a></li>
+                        <li class="course-list"><a href=""> <i class="fa fa-hashtag text-warning"></i> Backend With PHP</a></li>
+                        <li class="course-list"><a href=""> <i class="fa fa-hashtag text-warning"></i> Basic HTML, CSS, For Beginner</a></li>
+                    </ul>
+                </div>
+
+                <h5 class="category-title mt-5">LATEST COURSES</h5>
+                <div class="latest-course card mt-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="col-4 m-2 ">
+                            <img class="card-img" src="https://techmaster.vn/resources/image/java-spring-boot-min.jpg" alt="">
+                        </span>
+                        <div class="m-2">
+                            <h6 class="text-warning">Java FullStack With SpringBoot</h6>
+                            <span class="d-flex gap-1 mb-0"><p class="mb-0 text-primary" >6.500.000 </p><p class="mb-0"> vnđ</p></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="latest-course card mt-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="col-4 m-2 ">
+                            <img class="card-img" src="https://techmaster.vn/resources/image/java-spring-boot-min.jpg" alt="">
+                        </span>
+                        <div class="m-2">
+                            <h6 class="text-warning">Java FullStack With SpringBoot</h6>
+                            <span class="d-flex gap-1 mb-0"><p class="mb-0 text-primary">6.500.000 </p><p class="mb-0"> vnđ</p></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="latest-course card mt-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="col-4 m-2 ">
+                            <img class="card-img" src="https://techmaster.vn/resources/image/java-spring-boot-min.jpg" alt="">
+                        </span>
+                        <div class="m-2">
+                            <h6 class="text-warning">Java FullStack With SpringBoot</h6>
+                            <span class="d-flex gap-1 mb-0"><p class="mb-0 text-success">Free </p></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container mb-5">
+                <h3 class="text-center mb-4 mt-3">You may like</h3>
+                <div class="slider-container">
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="card">
+                                    <img src="https://php.techmaster.vn/img/thumbnail.jpg" class="card-img-top" alt="PHP Fullstack">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Lập trình Web PHP Fullstack</h5>
+                                        <p class="card-text">Job hunt - Trang tuyển dụng</p>
+                                        <p class="card-text"><small>Học viên Nguyễn Hòa Khiêm - Java 07</small></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="card">
+                                    <img src="https://php.techmaster.vn/img/thumbnail.jpg" class="card-img-top" alt="PHP Fullstack">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Lập trình Web PHP Fullstack</h5>
+                                        <p class="card-text">Job hunt - Trang tuyển dụng</p>
+                                        <p class="card-text"><small>Học viên Nguyễn Hòa Khiêm - Java 07</small></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="card">
+                                    <img src="https://php.techmaster.vn/img/thumbnail.jpg" class="card-img-top" alt="PHP Fullstack">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Lập trình Web PHP Fullstack</h5>
+                                        <p class="card-text">Job hunt - Trang tuyển dụng</p>
+                                        <p class="card-text"><small>Học viên Nguyễn Hòa Khiêm - Java 07</small></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="card">
+                                    <img src="https://php.techmaster.vn/img/thumbnail.jpg" class="card-img-top" alt="PHP Fullstack">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Lập trình Web PHP Fullstack</h5>
+                                        <p class="card-text">Job hunt - Trang tuyển dụng</p>
+                                        <p class="card-text"><small>Học viên Nguyễn Hòa Khiêm - Java 07</small></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

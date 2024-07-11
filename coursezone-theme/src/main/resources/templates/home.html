@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:ezy="http://www.ezyplatform.com/thymeleaf/layout"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{ezytheme}">
+<head>
+    <style>
+        .instructor-section::before {
+            background-image: url("[[${webBannerImageUrl != null ? webBannerImageUrl : '/images/theme_home.jpg'}]]");
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="instructor-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 animate">
+                    <h1 class="mb-4 text-white header-title-section">
+                        [[${mainHeadingFragments.get("description").title}]]
+                    </h1>
+                    <div class="text-white header-content-section"
+                         th:utext="${mainHeadingFragments.get('description').content}">
+                    </div>
+                    <button class="get-started-btn btn btn-light mt-3 border-0">Get Started</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="featured-courses py-5 bg-light animate">
+        <div class="container">
+            <h3 class="text-center mt-5">Popular Courses</h3>
+            <p class="text-center mt-2 mb-5 sec-title">Limitless learning, more possibilities</p>
+            <div class="row">
+                <div class="col-md-3 mb-4 animate">
+                    <div class="course-card">
+                        <img src="https://techmaster.vn/resources/image/java-spring-boot-min.jpg" alt="LearnPress" class="course-image">
+                        <div class="course-info">
+                            <h4 class="course-title">Java Springboot Fullstack</h4>
+                            <p>Full Stack Java course trains students to build a complete website from Frontend to Backend with Java</p>
+                            <div class="course-meta">
+                                <span class="lessons"><i class="fa fa-file-alt"></i> 23</span>
+                                <span class="students"><i class="fa fa-user"></i> 3320</span>
+                                <span class="price">Free</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4 animate">
+                    <div class="course-card">
+                        <img src="https://techmaster.vn/resources/image/route_frontend.jpg" alt="LearnPress" class="course-image">
+                        <div class="course-info">
+                            <h4 class="course-title">Web Frontend + React</h4>
+                            <p>Learn Frontend + React Web programming 5 months 60 sessions with Offline training</p>
+                            <div class="course-meta">
+                                <span class="lessons"><i class="fa fa-file-alt"></i> 14</span>
+                                <span class="students"><i class="fa fa-user"></i> 1320</span>
+                                <span class="price">Free</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4 animate">
+                    <div class="course-card">
+                        <img src="https://php.techmaster.vn/img/thumbnail.jpg" alt="LearnPress" class="course-image">
+                        <div class="course-info">
+                            <h4 class="course-title">Web PHP Laravel Fullstack</h4>
+                            <p>Full Stack PHP course trains students to build a complete website from FE to BE with PHP Laravel</p>
+                            <div class="course-meta">
+                                <span class="lessons"><i class="fa fa-file-alt"></i> 12</span>
+                                <span class="students"><i class="fa fa-user"></i> 883</span>
+                                <span class="price">Free</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4 animate">
+                    <div class="course-card">
+                        <img src="https://techmaster.vn/resources/image/flutter-min.jpg" alt="LearnPress" class="course-image">
+                        <div class="course-info">
+                            <h4 class="course-title">Flutter For IOS - Android</h4>
+                            <p>Flutter curriculum from basic to advanced, detailed compilation, practice >70% of the time</p>
+                            <div class="course-meta">
+                                <span class="lessons"><i class="fa fa-file-alt"></i> 15</span>
+                                <span class="students"><i class="fa fa-user"></i> 332</span>
+                                <span class="price">Free</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="text-center mt-2">
+                <button class="view-more-btn">[[#{view_more}]]</button>
+            </div>
+        </div>
+    </section>
+
+    <div class="instructor-section-join">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 m-auto animate">
+                    <p class="text-white">GET 100 OF ONLINE COURSES FOR FREE</p>
+                    <h1 class="mb-4 text-white header-title-section">REGISTER NOW</h1>
+                    <div class="countdown-timer">
+                        <div class="timer-item">
+                            <span class="timer-value">80</span>
+                            <span class="timer-label">days</span>
+                        </div>
+                        <div class="timer-item">
+                            <span class="timer-value">09</span>
+                            <span class="timer-label">hours</span>
+                        </div>
+                        <div class="timer-item">
+                            <span class="timer-value">58</span>
+                            <span class="timer-label">minutes</span>
+                        </div>
+                        <div class="timer-item">
+                            <span class="timer-value">39</span>
+                            <span class="timer-label">seconds</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 m-auto animate">
+                    <div class="registration-form">
+                        <h2>Create your free account now and immediately get access to 100s of online courses.</h2>
+                        <form>
+                            <input type="text" placeholder="Your Name *" required>
+                            <input type="email" placeholder="Email *" required>
+                            <input type="tel" placeholder="Phone *" required>
+                            <button type="submit" class="get-it-now-btn">GET IT NOW</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="why-choose-us py-5 mt-4 animate">
+        <div class="container">
+            <h3 class="text-center mb-2">Why Choose Course Zone?</h3>
+            <p class="text-center mt-2 mb-5 sec-title">Limitless learning, more possibilities</p>
+            <div class="row py-5">
+                <div class="col-md-3 text-center mb-4">
+                    <span class="mb-3"><img src="../../images/lecture.png" alt="lecture"></span>
+                    <h5>Choice of in-person or online learning</h5>
+                </div>
+                <div class="col-md-3 text-center mb-4">
+                    <span class="mb-3"><img src="../../images/documents.png" alt="documents"></span>
+                    <h5>Detailed curriculum system, the latest online materials</h5>
+                </div>
+                <div class="col-md-3 text-center mb-4">
+                    <span class="mb-3"><img src="../../images/teacher.png" alt="teacher"></span>
+                    <h5>Good teaching staff, 1:1 grading</h5>
+                </div>
+                <div class="col-md-3 text-center mb-4">
+                    <span class="mb-3"><img src="../../images/certificate.png" alt="certificate"></span>
+                    <h5>Commitment to job introduction, tuition refund</h5>
+                </div>
+            </div>
+            <span class="d-flex justify-content-center mb-5">
+                <button class="get-started-btn btn btn-light mt-3 border-0">Learn more</button>
+            </span>
+        </div>
+    </section>
+
+    <section class="student-projects py-5 animate">
+        <div class="container">
+            <h3 class="text-center mb-2 title-section">Student Project</h3>
+            <p class="text-center mt-2 mb-5 sec-title">Students' products after each course</p>
+            <div class="slider-container">
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="card">
+                                <img src="https://php.techmaster.vn/img/thumbnail.jpg" class="card-img-top" alt="PHP Fullstack">
+                                <div class="card-body">
+                                    <h5 class="card-title">Web PHP Fullstack </h5>
+                                    <p class="card-text">Job hunt - Trang tuyển dụng</p>
+                                    <p class="card-text"><small>Học viên Nguyễn Hòa Khiêm - Java 07</small></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="card">
+                                <img src="https://php.techmaster.vn/img/thumbnail.jpg" class="card-img-top" alt="PHP Fullstack">
+                                <div class="card-body">
+                                    <h5 class="card-title">Lập trình Web PHP Fullstack</h5>
+                                    <p class="card-text">Job hunt - Trang tuyển dụng</p>
+                                    <p class="card-text"><small>Học viên Nguyễn Hòa Khiêm - Java 07</small></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="card">
+                                <img src="https://php.techmaster.vn/img/thumbnail.jpg" class="card-img-top" alt="PHP Fullstack">
+                                <div class="card-body">
+                                    <h5 class="card-title">Lập trình Web PHP Fullstack</h5>
+                                    <p class="card-text">Job hunt - Trang tuyển dụng</p>
+                                    <p class="card-text"><small>Học viên Nguyễn Hòa Khiêm - Java 07</small></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="card">
+                                <img src="https://php.techmaster.vn/img/thumbnail.jpg" class="card-img-top" alt="PHP Fullstack">
+                                <div class="card-body">
+                                    <h5 class="card-title">Lập trình Web PHP Fullstack</h5>
+                                    <p class="card-text">Job hunt - Trang tuyển dụng</p>
+                                    <p class="card-text"><small>Học viên Nguyễn Hòa Khiêm - Java 07</small></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="card">
+                                <img src="https://php.techmaster.vn/img/thumbnail.jpg" class="card-img-top" alt="PHP Fullstack">
+                                <div class="card-body">
+                                    <h5 class="card-title">Lập trình Web PHP Fullstack</h5>
+                                    <p class="card-text">Job hunt - Trang tuyển dụng</p>
+                                    <p class="card-text"><small>Học viên Nguyễn Hòa Khiêm - Java 07</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-button-next"></div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <span class="d-flex justify-content-center mb-2">
+                <button class="get-started-btn btn btn-light mt-5 border-0">See more</button>
+            </span>
+        </div>
+    </section>
+
+    <section class="testimonials py-5 bg-light animate pb-1">
+        <div class="container">
+            <h2 class="text-center mb-1 mt-4">What People Say</h2>
+            <p class="text-center mb-5 sec-title">How real people said about Education WordPress Theme.</p>
+
+            <div class="swiper testimonial-swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide swiper-slide-img">
+                        <img src="https://th.bing.com/th/id/OIP.17thNOPE3_TENecGmgABaAAAAA?rs=1&pid=ImgDetMain" alt="Testimonial 1">
+                        <div class="testimonial-content">
+                            <h4>John Doe</h4>
+                            <p class="position">Developer</p>
+                            <p class="text">"This WordPress theme is incredibly user-friendly and feature-rich."</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide swiper-slide-img">
+                        <img src="https://th.bing.com/th/id/OIP.17thNOPE3_TENecGmgABaAAAAA?rs=1&pid=ImgDetMain" alt="Testimonial 2">
+                        <div class="testimonial-content">
+                            <h4>Jane Smith</h4>
+                            <p class="position">Teacher</p>
+                            <p class="text">"The Education WordPress Theme has transformed the way I deliver online lessons."</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide swiper-slide-img">
+                        <img src="https://th.bing.com/th/id/OIP.17thNOPE3_TENecGmgABaAAAAA?rs=1&pid=ImgDetMain" alt="Testimonial 3">
+                        <div class="testimonial-content">
+                            <h4>Manuel</h4>
+                            <p class="position">Designer</p>
+                            <p class="text">"LearnPress is a comprehensive LMS solution for WordPress. It's easy to use and powerful."</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide swiper-slide-img">
+                        <img src="https://th.bing.com/th/id/OIP.17thNOPE3_TENecGmgABaAAAAA?rs=1&pid=ImgDetMain" alt="Testimonial 3">
+                        <div class="testimonial-content">
+                            <h4>Manuel</h4>
+                            <p class="position">Designer</p>
+                            <p class="text">"LearnPress is a comprehensive LMS solution for WordPress. It's easy to use and powerful."</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide swiper-slide-img">
+                        <img src="https://th.bing.com/th/id/OIP.17thNOPE3_TENecGmgABaAAAAA?rs=1&pid=ImgDetMain" alt="Testimonial 3">
+                        <div class="testimonial-content">
+                            <h4>Manuel</h4>
+                            <p class="position">Designer</p>
+                            <p class="text">"LearnPress is a comprehensive LMS solution for WordPress. It's easy to use and powerful."</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide swiper-slide-img">
+                        <img src="https://th.bing.com/th/id/OIP.17thNOPE3_TENecGmgABaAAAAA?rs=1&pid=ImgDetMain" alt="Testimonial 3">
+                        <div class="testimonial-content">
+                            <h4>Manuel</h4>
+                            <p class="position">Designer</p>
+                            <p class="text">"LearnPress is a comprehensive LMS solution for WordPress. It's easy to use and powerful."</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide swiper-slide-img">
+                        <img src="https://th.bing.com/th/id/OIP.17thNOPE3_TENecGmgABaAAAAA?rs=1&pid=ImgDetMain" alt="Testimonial 3">
+                        <div class="testimonial-content">
+                            <h4>Manuel</h4>
+                            <p class="position">Designer</p>
+                            <p class="text">"LearnPress is a comprehensive LMS solution for WordPress. It's easy to use and powerful."</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="newsletter-signup mt-2 p-0">
+            <div class="container">
+                <div class="letter-homepage">
+                    <h6 class="text-center">Subscribe now and receive weekly newsletter with educational materials,</h6>
+                    <p class="text-center">new courses, interesting posts, popular books and much more!</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email here" required>
+                        <button type="submit" class="subscribe-btn">SUBSCRIBE</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<th:block layout:fragment="post-scripts">
+    <script ezy:vsrc="/js/ezyclient-1.0.3.min.js"></script>
+    <script ezy:vsrc="/js/phaser.min.js"></script>
+    <script ezy:vsrc="/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            new Swiper('.testimonial-swiper', {
+                slidesPerView: 5,
+                centeredSlides: true,
+                spaceBetween: 20,
+                loop: true,
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                autoplay: {
+                    delay: 3000,
+                    disableOnInteraction: false,
+                },
+                breakpoints: {
+                    320: {
+                        slidesPerView: 1,
+                        spaceBetween: 20
+                    },
+                    768: {
+                        slidesPerView: 5,
+                        spaceBetween: 30
+                    }
+                }
+            });
+        });
+    </script>
+</th:block>
+</body>
+</html>

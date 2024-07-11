@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="header" class="content">
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand header-logo" href="/">CourseZone</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/course">Course</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about-us">About us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact-us">Contact</a>
+                    </li>
+                    <li class="nav-item btn-group">
+                        <button class="nav-link nav-avatar" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                            <span class="avatar">
+                                <img src="https://th.bing.com/th/id/OIP.17thNOPE3_TENecGmgABaAAAAA?rs=1&pid=ImgDetMain" alt="avatar">
+                            </span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-lg-end">
+                            <li><a class="dropdown-item text-center" href="#">Profile <i class="fa fa-user"></i></a></li>
+                            <li><a class="dropdown-item text-center" href="#">Language <i class="fa fa-globe"></i></a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item text-center" href="#">
+                                    <button class="logout-btn">
+                                        Logout <i class="fa fa-arrow-right-from-bracket"></i>
+                                    </button>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<div class="d-flex tex">
+    <div></div>
+    <div></div>
+</div>
+<script th:fragment="scripts" type="text/javascript">
+    $(document).ready(function () {
+        $('.nav-item a').on('click', function () {
+            $('.nav-item a').removeClass('active');
+            $(this).addClass('active');
+        });
+    });
+</script>
+</body>
+</html>
