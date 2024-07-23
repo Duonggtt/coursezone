@@ -35,7 +35,7 @@
                                 <i class="fas fa-list"></i>
                             </button>
                         </div>
-                        <span>Showing 1-12 of 19 results</span>
+                        <span>Showing 1-12 of <span th:text="${paginationCount}"></span> results</span>
                     </div>
                     <div class="d-flex">
                         <select class="form-select me-2" aria-label="Sort by">
@@ -53,260 +53,40 @@
                 </div>
                 <div id="course-container" class="row row-cols-1 row-cols-md-3 g-4 animate">
                     <!-- Khóa học (lặp lại cho mỗi khóa học) -->
-                    <div class="col mb-4 course-item">
+                    <div th:each="course : ${pagination}" class="col mb-4 course-item">
                         <div class="card-wrapper" style="overflow: hidden;">
                             <div class="card h-100 course-card">
                                 <div class="card-img-container">
-                                    <img src="https://techmaster.vn/resources/image/java-spring-boot-min.jpg" class="card-img-top" alt="Python course">
+                                    <img th:src="${course.bannerImage.getUrlOrNull()}" class="card-img-top" alt="Python course">
                                     <div class="hover-overlay">
-                                        <a href="/course/detail" class="btn btn-warning">Read more</a>
+                                        <a th:attr="href='/courses/detail/' + ${course.code}" class="btn btn-warning">Read more</a>
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <h5 class="card-title">Khóa học Python cơ bản</h5>
-                                    <p class="card-text"><small class="text-muted">4.5 <i class="bi bi-star-fill text-warning"></i> (200 đánh giá)</small></p>
-                                    <p class="card-text">Giảng viên: John Doe - 30 bài học</p>
+                                    <h5 th:text="${course.displayName}" class="card-title"></h5>
+                                    <p class="card-text"><small class="text-muted">4.5 <i class="bi bi-star-fill text-warning"></i> (200 reviews)</small></p>
+                                    <p class="card-text">Teacher: <span class="text-primary" th:text="${course.teacher.displayName}"></span> - <span class="text-warning" th:text="${course.lessons}"></span> Lessons</p>
                                     <ul class="list-inline">
-                                        <li class="list-inline-item"><i class="bi bi-clock"></i> 20 giờ</li>
-                                        <li class="list-inline-item"><i class="bi bi-person"></i> Cơ bản</li>
-                                        <li class="list-inline-item"><i class="bi bi-book"></i> Bài tập</li>
+                                        <li class="list-inline-item"><i class="bi bi-clock"></i> <span th:text="${course.lessonDuration}"></span> hr</li>
+                                        <li class="list-inline-item"><i class="bi bi-book"></i> <span th:text="${course.classType}"></span></li>
+                                        <li class="list-inline-item"><i class="bi bi-person"></i> <span th:text="${course.totalSlots}"></span> slots</li>
                                     </ul>
-                                    <p class="card-text"><strong>1,500,000đ</strong></p>
+                                    <div class="d-flex align-items-center">
+                                        <p class="card-text mb-0">
+                                            <strong>
+                                                <span class="text-success" th:text="${#numbers.formatDecimal(course.price, 1, 'POINT', 0, 'COMMA')}"></span> $
+                                            </strong>
+                                        </p>
+                                        <p class="card-text mb-0 ms-3" th:if="${course.originalPrice != course.price}">
+                                            <strong>
+                                                <span class="text-danger text-decoration-line-through" th:text="${#numbers.formatDecimal(course.originalPrice, 1, 'POINT', 0, 'COMMA')}"></span>
+                                            </strong>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col mb-4 course-item">
-                        <div class="card-wrapper" style="overflow: hidden;">
-                            <div class="card h-100 course-card">
-                                <div class="card-img-container">
-                                    <img src="https://techmaster.vn/resources/image/java-spring-boot-min.jpg" class="card-img-top" alt="Python course">
-                                    <div class="hover-overlay">
-                                        <a href="/course/detail" class="btn btn-warning">Read more</a>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">Khóa học Python cơ bản</h5>
-                                    <p class="card-text"><small class="text-muted">4.5 <i class="bi bi-star-fill text-warning"></i> (200 đánh giá)</small></p>
-                                    <p class="card-text">Giảng viên: John Doe - 30 bài học</p>
-                                    <ul class="list-inline">
-                                        <li class="list-inline-item"><i class="bi bi-clock"></i> 20 giờ</li>
-                                        <li class="list-inline-item"><i class="bi bi-person"></i> Cơ bản</li>
-                                        <li class="list-inline-item"><i class="bi bi-book"></i> Bài tập</li>
-                                    </ul>
-                                    <p class="card-text"><strong>1,500,000đ</strong></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-4 course-item">
-                        <div class="card-wrapper" style="overflow: hidden;">
-                            <div class="card h-100 course-card">
-                                <div class="card-img-container">
-                                    <img src="https://techmaster.vn/resources/image/java-spring-boot-min.jpg" class="card-img-top" alt="Python course">
-                                    <div class="hover-overlay">
-                                        <a href="/course/detail" class="btn btn-warning">Read more</a>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">Khóa học Python cơ bản</h5>
-                                    <p class="card-text"><small class="text-muted">4.5 <i class="bi bi-star-fill text-warning"></i> (200 đánh giá)</small></p>
-                                    <p class="card-text">Giảng viên: John Doe - 30 bài học</p>
-                                    <ul class="list-inline">
-                                        <li class="list-inline-item"><i class="bi bi-clock"></i> 20 giờ</li>
-                                        <li class="list-inline-item"><i class="bi bi-person"></i> Cơ bản</li>
-                                        <li class="list-inline-item"><i class="bi bi-book"></i> Bài tập</li>
-                                    </ul>
-                                    <p class="card-text"><strong>1,500,000đ</strong></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-4 course-item">
-                        <div class="card-wrapper" style="overflow: hidden;">
-                            <div class="card h-100 course-card">
-                                <div class="card-img-container">
-                                    <img src="https://techmaster.vn/resources/image/java-spring-boot-min.jpg" class="card-img-top" alt="Python course">
-                                    <div class="hover-overlay">
-                                        <a href="/course/detail" class="btn btn-warning">Read more</a>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">Khóa học Python cơ bản</h5>
-                                    <p class="card-text"><small class="text-muted">4.5 <i class="bi bi-star-fill text-warning"></i> (200 đánh giá)</small></p>
-                                    <p class="card-text">Giảng viên: John Doe - 30 bài học</p>
-                                    <ul class="list-inline">
-                                        <li class="list-inline-item"><i class="bi bi-clock"></i> 20 giờ</li>
-                                        <li class="list-inline-item"><i class="bi bi-person"></i> Cơ bản</li>
-                                        <li class="list-inline-item"><i class="bi bi-book"></i> Bài tập</li>
-                                    </ul>
-                                    <p class="card-text"><strong>1,500,000đ</strong></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-4 course-item">
-                        <div class="card-wrapper" style="overflow: hidden;">
-                            <div class="card h-100 course-card">
-                                <div class="card-img-container">
-                                    <img src="https://techmaster.vn/resources/image/java-spring-boot-min.jpg" class="card-img-top" alt="Python course">
-                                    <div class="hover-overlay">
-                                        <a href="/course/detail" class="btn btn-warning">Read more</a>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">Khóa học Python cơ bản</h5>
-                                    <p class="card-text"><small class="text-muted">4.5 <i class="bi bi-star-fill text-warning"></i> (200 đánh giá)</small></p>
-                                    <p class="card-text">Giảng viên: John Doe - 30 bài học</p>
-                                    <ul class="list-inline">
-                                        <li class="list-inline-item"><i class="bi bi-clock"></i> 20 giờ</li>
-                                        <li class="list-inline-item"><i class="bi bi-person"></i> Cơ bản</li>
-                                        <li class="list-inline-item"><i class="bi bi-book"></i> Bài tập</li>
-                                    </ul>
-                                    <p class="card-text"><strong>1,500,000đ</strong></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-4 course-item">
-                        <div class="card-wrapper" style="overflow: hidden;">
-                            <div class="card h-100 course-card">
-                                <div class="card-img-container">
-                                    <img src="https://techmaster.vn/resources/image/java-spring-boot-min.jpg" class="card-img-top" alt="Python course">
-                                    <div class="hover-overlay">
-                                        <a href="/course/detail" class="btn btn-warning">Read more</a>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">Khóa học Python cơ bản</h5>
-                                    <p class="card-text"><small class="text-muted">4.5 <i class="bi bi-star-fill text-warning"></i> (200 đánh giá)</small></p>
-                                    <p class="card-text">Giảng viên: John Doe - 30 bài học</p>
-                                    <ul class="list-inline">
-                                        <li class="list-inline-item"><i class="bi bi-clock"></i> 20 giờ</li>
-                                        <li class="list-inline-item"><i class="bi bi-person"></i> Cơ bản</li>
-                                        <li class="list-inline-item"><i class="bi bi-book"></i> Bài tập</li>
-                                    </ul>
-                                    <p class="card-text"><strong>1,500,000đ</strong></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-4 course-item">
-                        <div class="card-wrapper" style="overflow: hidden;">
-                            <div class="card h-100 course-card">
-                                <div class="card-img-container">
-                                    <img src="https://techmaster.vn/resources/image/java-spring-boot-min.jpg" class="card-img-top" alt="Python course">
-                                    <div class="hover-overlay">
-                                        <a href="/course/detail" class="btn btn-warning">Read more</a>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">Khóa học Python cơ bản</h5>
-                                    <p class="card-text"><small class="text-muted">4.5 <i class="bi bi-star-fill text-warning"></i> (200 đánh giá)</small></p>
-                                    <p class="card-text">Giảng viên: John Doe - 30 bài học</p>
-                                    <ul class="list-inline">
-                                        <li class="list-inline-item"><i class="bi bi-clock"></i> 20 giờ</li>
-                                        <li class="list-inline-item"><i class="bi bi-person"></i> Cơ bản</li>
-                                        <li class="list-inline-item"><i class="bi bi-book"></i> Bài tập</li>
-                                    </ul>
-                                    <p class="card-text"><strong>1,500,000đ</strong></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-4 course-item">
-                        <div class="card-wrapper" style="overflow: hidden;">
-                            <div class="card h-100 course-card">
-                                <div class="card-img-container">
-                                    <img src="https://techmaster.vn/resources/image/java-spring-boot-min.jpg" class="card-img-top" alt="Python course">
-                                    <div class="hover-overlay">
-                                        <a href="/course/detail" class="btn btn-warning">Read more</a>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">Khóa học Python cơ bản</h5>
-                                    <p class="card-text"><small class="text-muted">4.5 <i class="bi bi-star-fill text-warning"></i> (200 đánh giá)</small></p>
-                                    <p class="card-text">Giảng viên: John Doe - 30 bài học</p>
-                                    <ul class="list-inline">
-                                        <li class="list-inline-item"><i class="bi bi-clock"></i> 20 giờ</li>
-                                        <li class="list-inline-item"><i class="bi bi-person"></i> Cơ bản</li>
-                                        <li class="list-inline-item"><i class="bi bi-book"></i> Bài tập</li>
-                                    </ul>
-                                    <p class="card-text"><strong>1,500,000đ</strong></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-4 course-item">
-                        <div class="card-wrapper" style="overflow: hidden;">
-                            <div class="card h-100 course-card">
-                                <div class="card-img-container">
-                                    <img src="https://techmaster.vn/resources/image/java-spring-boot-min.jpg" class="card-img-top" alt="Python course">
-                                    <div class="hover-overlay">
-                                        <a href="/course/detail" class="btn btn-warning">Read more</a>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">Khóa học Python cơ bản</h5>
-                                    <p class="card-text"><small class="text-muted">4.5 <i class="bi bi-star-fill text-warning"></i> (200 đánh giá)</small></p>
-                                    <p class="card-text">Giảng viên: John Doe - 30 bài học</p>
-                                    <ul class="list-inline">
-                                        <li class="list-inline-item"><i class="bi bi-clock"></i> 20 giờ</li>
-                                        <li class="list-inline-item"><i class="bi bi-person"></i> Cơ bản</li>
-                                        <li class="list-inline-item"><i class="bi bi-book"></i> Bài tập</li>
-                                    </ul>
-                                    <p class="card-text"><strong>1,500,000đ</strong></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-4 course-item">
-                        <div class="card-wrapper" style="overflow: hidden;">
-                            <div class="card h-100 course-card">
-                                <div class="card-img-container">
-                                    <img src="https://techmaster.vn/resources/image/java-spring-boot-min.jpg" class="card-img-top" alt="Python course">
-                                    <div class="hover-overlay">
-                                        <a href="/course/detail" class="btn btn-warning">Read more</a>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">Khóa học Python cơ bản</h5>
-                                    <p class="card-text"><small class="text-muted">4.5 <i class="bi bi-star-fill text-warning"></i> (200 đánh giá)</small></p>
-                                    <p class="card-text">Giảng viên: John Doe - 30 bài học</p>
-                                    <ul class="list-inline">
-                                        <li class="list-inline-item"><i class="bi bi-clock"></i> 20 giờ</li>
-                                        <li class="list-inline-item"><i class="bi bi-person"></i> Cơ bản</li>
-                                        <li class="list-inline-item"><i class="bi bi-book"></i> Bài tập</li>
-                                    </ul>
-                                    <p class="card-text"><strong>1,500,000đ</strong></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-4 course-item">
-                        <div class="card-wrapper" style="overflow: hidden;">
-                            <div class="card h-100 course-card">
-                                <div class="card-img-container">
-                                    <img src="https://techmaster.vn/resources/image/java-spring-boot-min.jpg" class="card-img-top" alt="Python course">
-                                    <div class="hover-overlay">
-                                        <a href="/course/detail" class="btn btn-warning">Read more</a>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">Khóa học Python cơ bản</h5>
-                                    <p class="card-text"><small class="text-muted">4.5 <i class="bi bi-star-fill text-warning"></i> (200 đánh giá)</small></p>
-                                    <p class="card-text">Giảng viên: John Doe - 30 bài học</p>
-                                    <ul class="list-inline">
-                                        <li class="list-inline-item"><i class="bi bi-clock"></i> 20 giờ</li>
-                                        <li class="list-inline-item"><i class="bi bi-person"></i> Cơ bản</li>
-                                        <li class="list-inline-item"><i class="bi bi-book"></i> Bài tập</li>
-                                    </ul>
-                                    <p class="card-text"><strong>1,500,000đ</strong></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
 
                 <!-- Phân trang -->
