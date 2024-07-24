@@ -1,4 +1,4 @@
-package com.learn.coursezone.web.controller.view.controller;
+package com.learn.coursezone.web.controller;
 
 import com.tvd12.ezyhttp.server.core.annotation.Controller;
 import com.tvd12.ezyhttp.server.core.annotation.DoGet;
@@ -74,37 +74,20 @@ public class CourseController {
     }
 
     @DoGet("/courses/detail/{code}")
-    public View classesCodeGet(HttpServletRequest request, @UserId Long userId, @PathVariable String code) {
+    public View classesCodeGet(HttpServletRequest request, @UserId Long userId, @PathVariable String code,@RequestParam("keyword") String keyword, @RequestParam("nextPageToken") String nextPageToken, @RequestParam("prevPageToken") String prevPageToken, @RequestParam("lastPage") boolean lastPage, @RequestParam(value = "limit",defaultValue = "8") int limit) {
         EClassModel model = this.eclassControllerService.getClassModelByCodeOrThrow(code);
         SimpleProductCurrencyModel defaultCurrency = this.productCurrencyService.getSimpleDefaultCurrency();
-        WebEClassWithDescriptionResponse eclass = this.eclassModelDecorator.decorate(model, HttpRequests.getLanguage(request), defaultCurrency.getId(), defaultCurrency.getFormat());
-        long classId = eclass.getId();
-        boolean userIsTeacher = userId != null && userId == model.getTeacherId();
-        Reactive.Multiple var10000 = Reactive.multiple().register("eclassRegistered", () -> {
-            return userId != null && this.userRegisteredEClassService.isRegisteredClass(userId, classId);
-        }).register("finishedLessons", () -> {
-            return userId == null ? 0 : this.eclassLessonService.countFinishedLessonByClassId(classId);
-        }).register("cancelledLessons", () -> {
-            return userId == null ? 0 : this.eclassLessonService.countCancelledLessonByClassIdAndCancellerId(classId, userId);
-        }).register("students", () -> {
-            return userIsTeacher ? this.eclassControllerService.getStudentsByClassId(classId) : Collections.emptyList();
-        }).register("studentAveragePoint", () -> {
-            return userId == null ? BigDecimal.ZERO : this.eclassStudentLessonPointService.getStudentAveragePointByClassIdAndStudentId(classId, userId);
-        });
-        WebContactMethodService var10002 = this.contactMethodService;
-        var10002.getClass();
-        var10000 = var10000.register("mainContactMethod", var10002::getTopActivatedContactMethod);
-        WebELearningSettingService var10 = this.elearningSettingService;
-        var10.getClass();
-        return (View)var10000.register("allowRegisterClass", var10::isAllowRegisterClass).blockingGet((it) -> {
-            return View.builder()
-                .template("course-detail")
-                .addVariables(it.valueMap())
-                .addVariable("eclass", eclass)
-                .addVariable("defaultCurrency", defaultCurrency)
-                .addVariable("pageTitle", eclass.getDisplayName())
-                .build();
-        });
+        WebEClassWithDescriptionResponse course = this.eclassModelDecorator.decorate(model, HttpRequests.getLanguage(request), defaultCurrency.getId(), defaultCurrency.getFormat());
+        long courseId = course.getId();
+        PaginationModel<WebEClassResponse> pagination = this.eclassControllerService.getPublicClasses(userId, keyword, nextPageToken, prevPageToken, lastPage, limit, defaultCurrency.getId(), defaultCurrency.getFormat());
+        return View.builder()
+            .template("course-detail")
+            .addVariable("courseId", courseId)
+            .addVariable("course", course)
+            .addVariable("pagination", pagination.getItems())
+            .addVariable("defaultCurrency", defaultCurrency)
+            .addVariable("pageTitle", course.getDisplayName())
+            .build();
     }
 
     public CourseController(WebContactMethodService contactMethodService, WebEClassLessonService eclassLessonService, WebEClassStudentLessonPointService eclassStudentLessonPointService, WebELearningSettingService elearningSettingService, WebProductCurrencyService productCurrencyService, WebUserRegisteredEClassService userRegisteredEClassService, WebEClassControllerService eclassControllerService, WebEClassModelDecorator eclassModelDecorator, WebCommonValidator webCommonValidator) {

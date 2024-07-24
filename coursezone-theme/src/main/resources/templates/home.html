@@ -35,66 +35,38 @@
             <h3 class="text-center mt-5">Popular Courses</h3>
             <p class="text-center mt-2 mb-5 sec-title">Limitless learning, more possibilities</p>
             <div class="row">
-                <div class="col-md-3 mb-4 animate">
+                <div class="col-md-3 mb-4 animate" th:each="course: ${pagination}">
                     <div class="course-card">
-                        <img src="https://techmaster.vn/resources/image/java-spring-boot-min.jpg" alt="LearnPress" class="course-image">
+                        <img th:src="${course.bannerImage.getUrlOrNull()}" alt="LearnPress" class="course-image">
                         <div class="course-info">
-                            <h4 class="course-title">Java Springboot Fullstack</h4>
-                            <p>Full Stack Java course trains students to build a complete website from Frontend to Backend with Java</p>
-                            <div class="course-meta">
-                                <span class="lessons"><i class="fa fa-file-alt"></i> 23</span>
-                                <span class="students"><i class="fa fa-user"></i> 3320</span>
-                                <span class="price">Free</span>
+                            <h5 th:text="${course.displayName}" class="card-title"></h5>
+                            <p class="card-text"><small class="text-muted">4.5 <i class="bi bi-star-fill text-warning"></i> (200 reviews)</small></p>
+                            <p class="card-text">Teacher: <span class="text-primary" th:text="${course.teacher.displayName}"></span> - <span class="text-warning" th:text="${course.lessons}"></span> Lessons</p>
+                            <ul class="list-inline">
+                                <li class="list-inline-item"><i class="bi bi-clock"></i> <span th:text="${course.lessonDuration}"></span> hr</li>
+                                <li class="list-inline-item"><i class="bi bi-book"></i> <span th:text="${course.classType}"></span></li>
+                                <li class="list-inline-item"><i class="bi bi-person"></i> <span th:text="${course.totalSlots}"></span> slots</li>
+                            </ul>
+                            <div class="d-flex align-items-center">
+                                <p class="card-text mb-0">
+                                    <strong>
+                                        <span class="text-success" th:text="${#numbers.formatDecimal(course.price, 1, 'POINT', 0, 'COMMA')}"></span> $
+                                    </strong>
+                                </p>
+                                <p class="card-text mb-0 ms-3" th:if="${course.originalPrice != course.price}">
+                                    <strong>
+                                        <span class="text-danger text-decoration-line-through" th:text="${#numbers.formatDecimal(course.originalPrice, 1, 'POINT', 0, 'COMMA')}"></span>
+                                    </strong>
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 mb-4 animate">
-                    <div class="course-card">
-                        <img src="https://techmaster.vn/resources/image/route_frontend.jpg" alt="LearnPress" class="course-image">
-                        <div class="course-info">
-                            <h4 class="course-title">Web Frontend + React</h4>
-                            <p>Learn Frontend + React Web programming 5 months 60 sessions with Offline training</p>
-                            <div class="course-meta">
-                                <span class="lessons"><i class="fa fa-file-alt"></i> 14</span>
-                                <span class="students"><i class="fa fa-user"></i> 1320</span>
-                                <span class="price">Free</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 mb-4 animate">
-                    <div class="course-card">
-                        <img src="https://php.techmaster.vn/img/thumbnail.jpg" alt="LearnPress" class="course-image">
-                        <div class="course-info">
-                            <h4 class="course-title">Web PHP Laravel Fullstack</h4>
-                            <p>Full Stack PHP course trains students to build a complete website from FE to BE with PHP Laravel</p>
-                            <div class="course-meta">
-                                <span class="lessons"><i class="fa fa-file-alt"></i> 12</span>
-                                <span class="students"><i class="fa fa-user"></i> 883</span>
-                                <span class="price">Free</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 mb-4 animate">
-                    <div class="course-card">
-                        <img src="https://techmaster.vn/resources/image/flutter-min.jpg" alt="LearnPress" class="course-image">
-                        <div class="course-info">
-                            <h4 class="course-title">Flutter For IOS - Android</h4>
-                            <p>Flutter curriculum from basic to advanced, detailed compilation, practice >70% of the time</p>
-                            <div class="course-meta">
-                                <span class="lessons"><i class="fa fa-file-alt"></i> 15</span>
-                                <span class="students"><i class="fa fa-user"></i> 332</span>
-                                <span class="price">Free</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
             <div class="text-center mt-2">
-                <button class="view-more-btn">[[#{view_more}]]</button>
+                <a href="/courses">
+                    <button class="view-more-btn">[[#{view_more}]]</button>
+                </a>
             </div>
         </div>
     </section>
@@ -139,34 +111,27 @@
         </div>
     </div>
 
-    <section class="why-choose-us py-5 mt-4 animate">
+    <section class="why-choose-us py-5 mt-4 animate animate-on-scroll">
         <div class="container">
             <h3 class="text-center mb-2">Why Choose Course Zone?</h3>
             <p class="text-center mt-2 mb-5 sec-title">Limitless learning, more possibilities</p>
             <div class="row py-5">
-                <div class="col-md-3 text-center mb-4">
-                    <span class="mb-3"><img src="../../images/lecture.png" alt="lecture"></span>
-                    <h5>Choice of in-person or online learning</h5>
-                </div>
-                <div class="col-md-3 text-center mb-4">
-                    <span class="mb-3"><img src="../../images/documents.png" alt="documents"></span>
-                    <h5>Detailed curriculum system, the latest online materials</h5>
-                </div>
-                <div class="col-md-3 text-center mb-4">
-                    <span class="mb-3"><img src="../../images/teacher.png" alt="teacher"></span>
-                    <h5>Good teaching staff, 1:1 grading</h5>
-                </div>
-                <div class="col-md-3 text-center mb-4">
-                    <span class="mb-3"><img src="../../images/certificate.png" alt="certificate"></span>
-                    <h5>Commitment to job introduction, tuition refund</h5>
-                </div>
+                <th:block th:each="wcuItem : ${whyChooseUsList}">
+                    <div class="col-md-3 text-center mb-4">
+                    <span class="mb-3">
+                        <img th:src="${wcuItem.iconImageUrl}" alt="icon">
+                    </span>
+                        <h5 th:text="${wcuItem.title}"></h5>
+                    </div>
+                </th:block>
             </div>
             <span class="d-flex justify-content-center mb-5">
+            <a href="/about-us">
                 <button class="get-started-btn btn btn-light mt-3 border-0">Learn more</button>
-            </span>
+            </a>
+        </span>
         </div>
     </section>
-
     <section class="student-projects py-5 animate">
         <div class="container">
             <h3 class="text-center mb-2 title-section">Student Project</h3>

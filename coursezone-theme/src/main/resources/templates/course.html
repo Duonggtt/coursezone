@@ -176,49 +176,27 @@
                 </div>
 
                 <h5 class="category-title mt-5 mb-4">ALL COURSES</h5>
-                <div class="mb-4">
-                    <ul>
-                        <li class="course-list"><a href=""> <i class="fa fa-hashtag text-warning"></i> Java SpringBoot FullStack</a></li>
-                        <li class="course-list"><a href=""> <i class="fa fa-hashtag text-warning"></i> PHP FullStack</a></li>
-                        <li class="course-list"><a href=""> <i class="fa fa-hashtag text-warning"></i> Frontend With VueJs</a></li>
-                        <li class="course-list"><a href=""> <i class="fa fa-hashtag text-warning"></i> Backend With PHP</a></li>
-                        <li class="course-list"><a href=""> <i class="fa fa-hashtag text-warning"></i> Basic HTML, CSS, For Beginner</a></li>
+                <div th:each="course: ${pagination}">
+                    <ul class="mb-0">
+                        <li class="course-list"><a th:attr="href='/courses/detail/' + ${course.code}"> <i class="fa fa-hashtag text-warning"></i> <span th:text="${course.displayName}"></span></a></li>
                     </ul>
                 </div>
 
-                <h5 class="category-title mt-5">LATEST COURSES</h5>
-                <div class="latest-course card mt-4">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="col-4 m-2 ">
-                            <img class="card-img" src="https://techmaster.vn/resources/image/java-spring-boot-min.jpg" alt="">
-                        </span>
-                        <div class="m-2">
-                            <h6 class="text-warning">Java FullStack With SpringBoot</h6>
-                            <span class="d-flex gap-1 mb-0"><p class="mb-0 text-primary" >6.500.000 </p><p class="mb-0"> vnđ</p></span>
+                <h5 class="category-title mb-4 mt-5">LATEST COURSES</h5>
+                <div th:each="course: ${pagination}">
+                    <a class="text-decoration-none" th:attr="href='/courses/detail/' + ${course.code}">
+                        <div class="latest-course card mt-2">
+                            <div class="d-flex align-items-center">
+                                <span class="col-4 m-2">
+                                    <img class="card-img" th:src="${course.bannerImage.getUrlOrNull()}" alt="course-detail-img">
+                                </span>
+                                <div class="m-2">
+                                    <h6 class="text-warning" th:text="${course.displayName}"></h6>
+                                    <span class="d-flex gap-1 mb-0"><p class="mb-0 text-primary" th:text="${#numbers.formatDecimal(course.price, 1, 'POINT', 0, 'COMMA')}"> </p><p class="mb-0"> $</p></span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="latest-course card mt-3">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="col-4 m-2 ">
-                            <img class="card-img" src="https://techmaster.vn/resources/image/java-spring-boot-min.jpg" alt="">
-                        </span>
-                        <div class="m-2">
-                            <h6 class="text-warning">Java FullStack With SpringBoot</h6>
-                            <span class="d-flex gap-1 mb-0"><p class="mb-0 text-primary">6.500.000 </p><p class="mb-0"> vnđ</p></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="latest-course card mt-3">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="col-4 m-2 ">
-                            <img class="card-img" src="https://techmaster.vn/resources/image/java-spring-boot-min.jpg" alt="">
-                        </span>
-                        <div class="m-2">
-                            <h6 class="text-warning">Java FullStack With SpringBoot</h6>
-                            <span class="d-flex gap-1 mb-0"><p class="mb-0 text-success">Free </p></span>
-                        </div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
