@@ -31,28 +31,8 @@ import static org.youngmonkeys.ezyplatform.constant.CommonConstants.VIEW_VARIABL
 
 @Controller
 public class CourseController {
-//    @DoGet("/course")
-//    public View home() {
-//        return View.builder()
-//                .template("course")
-//                .addVariable(VIEW_VARIABLE_PAGE_TITLE, "course")
-//                .build();
-//    }
 
-//    @DoGet("/course/detail")
-//    public View courseDetail() {
-//        return View.builder()
-//                .template("course-detail")
-//                .addVariable(VIEW_VARIABLE_PAGE_TITLE, "course")
-//                .build();
-//    }
-
-    private final WebContactMethodService contactMethodService;
-    private final WebEClassLessonService eclassLessonService;
-    private final WebEClassStudentLessonPointService eclassStudentLessonPointService;
-    private final WebELearningSettingService elearningSettingService;
     private final WebProductCurrencyService productCurrencyService;
-    private final WebUserRegisteredEClassService userRegisteredEClassService;
     private final WebEClassControllerService eclassControllerService;
     private final WebEClassModelDecorator eclassModelDecorator;
     private final WebCommonValidator webCommonValidator;
@@ -90,13 +70,8 @@ public class CourseController {
             .build();
     }
 
-    public CourseController(WebContactMethodService contactMethodService, WebEClassLessonService eclassLessonService, WebEClassStudentLessonPointService eclassStudentLessonPointService, WebELearningSettingService elearningSettingService, WebProductCurrencyService productCurrencyService, WebUserRegisteredEClassService userRegisteredEClassService, WebEClassControllerService eclassControllerService, WebEClassModelDecorator eclassModelDecorator, WebCommonValidator webCommonValidator) {
-        this.contactMethodService = contactMethodService;
-        this.eclassLessonService = eclassLessonService;
-        this.eclassStudentLessonPointService = eclassStudentLessonPointService;
-        this.elearningSettingService = elearningSettingService;
+    public CourseController( WebProductCurrencyService productCurrencyService,  WebEClassControllerService eclassControllerService, WebEClassModelDecorator eclassModelDecorator, WebCommonValidator webCommonValidator) {
         this.productCurrencyService = productCurrencyService;
-        this.userRegisteredEClassService = userRegisteredEClassService;
         this.eclassControllerService = eclassControllerService;
         this.eclassModelDecorator = eclassModelDecorator;
         this.webCommonValidator = webCommonValidator;
