@@ -5,6 +5,7 @@ import com.tvd12.ezyhttp.server.core.annotation.DoGet;
 import com.tvd12.ezyhttp.server.core.annotation.PathVariable;
 import com.tvd12.ezyhttp.server.core.annotation.RequestParam;
 import com.tvd12.ezyhttp.server.core.view.View;
+import org.youngmonkeys.ecommerce.model.ShopDetailsModel;
 import org.youngmonkeys.ecommerce.model.SimpleProductCurrencyModel;
 import org.youngmonkeys.ecommerce.web.controller.service.WebProductCategoryControllerService;
 import org.youngmonkeys.ecommerce.web.service.WebProductCurrencyService;
@@ -74,14 +75,20 @@ public class BlogController {
     }
 
     @DoGet("/blogs/detail/{slug}")
-    public View getDetail(HttpServletRequest request,@PathVariable String slug, @UserId Long userId, @RequestParam("keyword") String keyword, @RequestParam("nextPageToken") String nextPageToken, @RequestParam("prevPageToken") String prevPageToken, @RequestParam("lastPage") boolean lastPage, @RequestParam(value = "limit",defaultValue = "6") int limit) {
+    public View getDetail(HttpServletRequest request,@PathVariable String slug, @UserId Long userId, @RequestParam("keyword") String keyword, @RequestParam("nextPageToken") String nextPageToken, @RequestParam("prevPageToken") String prevPageToken, @RequestParam("lastPage") boolean lastPage, @RequestParam(value = "limit",defaultValue = "12") int limit) {
         String language = getLanguage(request);
+        DefaultPostFilter filter = DefaultPostFilter.builder()
+            .keywords(Keywords.toKeywords(keyword, true))
+            .postType(PostType.POST.toString()).postStatus(PostStatus.PUBLISHED.toString())
+            .build();
         SimpleProductCurrencyModel defaultCurrency = this.productCurrencyService.getSimpleDefaultCurrency();
         PaginationModel<WebEClassResponse> pagination = this.eclassControllerService.getPublicClasses(userId, keyword, nextPageToken, prevPageToken, lastPage, limit, defaultCurrency.getId(), defaultCurrency.getFormat());
         WebPostDetailsResponse post = this.postControllerService.getPostBySlug(slug, language);
+        PaginationModel<WebPostContentResponse> posts = this.postControllerService.getPostContentPagination(filter, language, nextPageToken, prevPageToken, lastPage, 5);
         return View.builder()
             .template("blog-detail")
             .addVariable("courses", pagination.getItems())
+            .addVariable("posts", posts.getItems())
             .addVariable("post", post)
             .addVariable(VIEW_VARIABLE_PAGE_TITLE, "blog-detail")
             .build();

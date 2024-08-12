@@ -6,7 +6,9 @@ import com.tvd12.ezyhttp.server.core.annotation.PathVariable;
 import com.tvd12.ezyhttp.server.core.annotation.RequestParam;
 import com.tvd12.ezyhttp.server.core.view.View;
 import lombok.AllArgsConstructor;
+import org.youngmonkeys.ecommerce.model.ShopDetailsModel;
 import org.youngmonkeys.ecommerce.model.SimpleProductCurrencyModel;
+import org.youngmonkeys.ecommerce.service.ShopDetailsService;
 import org.youngmonkeys.ecommerce.web.service.WebProductCurrencyService;
 import org.youngmonkeys.elearning.model.EClassModel;
 import org.youngmonkeys.elearning.web.controller.decorator.WebEClassModelDecorator;
@@ -35,7 +37,6 @@ public class HomeController {
     private final WebEClassControllerService eclassControllerService;
     private final WebProductCurrencyService productCurrencyService;
     private final WebWhyChooseUsControllerService whyChooseUsControllerService;
-    private final WebEClassModelDecorator eclassModelDecorator;
 
     @DoGet("/home")
     public View home(HttpServletRequest request, @UserId Long userId, @RequestParam("keyword") String keyword, @RequestParam("nextPageToken") String nextPageToken, @RequestParam("prevPageToken") String prevPageToken, @RequestParam("lastPage") boolean lastPage, @RequestParam(value = "limit",defaultValue = "4") int limit) {

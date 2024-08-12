@@ -24,11 +24,67 @@
                     <div class="text-white header-content-section"
                          th:utext="${mainHeadingFragments.get('description').content}">
                     </div>
-                    <button class="get-started-btn btn btn-light mt-3 border-0">Get Started</button>
+                    <button class="get-started-btn btn btn-light mt-3 border-0" data-bs-toggle="modal" data-bs-target="#loginModal">Get Started</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Login/Register Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">Login</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Login Form -->
+                    <div id="loginForm">
+                        <form>
+                            <div class="mb-3">
+                                <label for="loginEmail" class="form-label">Email address</label>
+                                <input type="email" class="form-control" id="loginEmail" placeholder="Enter your email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="loginPassword" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="loginPassword" placeholder="Enter your password" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Login</button>
+                        </form>
+                        <div class="text-center mt-3">
+                            <p>Don't have an account? <a href="#" id="showRegisterForm">Register here</a></p>
+                        </div>
+                    </div>
+
+                    <!-- Register Form -->
+                    <div id="registerForm" class="d-none">
+                        <form>
+                            <div class="mb-3">
+                                <label for="registerName" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="registerName" placeholder="Enter your full name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="registerEmail" class="form-label">Email address</label>
+                                <input type="email" class="form-control" id="registerEmail" placeholder="Enter your email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="registerPassword" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="registerPassword" placeholder="Enter your password" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Register</button>
+                        </form>
+                        <div class="text-center mt-3">
+                            <p>Already have an account? <a href="#" id="showLoginForm">Login</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 
     <section class="featured-courses py-5 bg-light animate">
         <div class="container">
@@ -314,7 +370,31 @@
                 }
             });
         });
+
+            document.addEventListener('DOMContentLoaded', function() {
+                const loginForm = document.getElementById('loginForm');
+                const registerForm = document.getElementById('registerForm');
+                const showRegisterForm = document.getElementById('showRegisterForm');
+                const showLoginForm = document.getElementById('showLoginForm');
+                const modalTitle = document.getElementById('modalTitle');
+
+                showRegisterForm.addEventListener('click', function(e) {
+                e.preventDefault();
+                loginForm.classList.add('d-none');
+                registerForm.classList.remove('d-none');
+                modalTitle.textContent = 'Register';  // Thay đổi tiêu đề thành "Register"
+            });
+
+                showLoginForm.addEventListener('click', function(e) {
+                e.preventDefault();
+                registerForm.classList.add('d-none');
+                loginForm.classList.remove('d-none');
+                modalTitle.textContent = 'Login';  // Thay đổi tiêu đề thành "Login"
+            });
+        });
+
     </script>
+
 </th:block>
 </body>
 </html>

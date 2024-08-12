@@ -55,7 +55,6 @@
                         </span>
                         <div class="mt-3">
                             <p th:utext="${#strings.substringBefore(#strings.substringAfter(post.content, '<p>'), '</p>')}"></p>
-<!--                            <p th:utext="${#strings.replace(#strings.replace(post.content, '<p>', ''), '</p>', '<br><br>')}"></p>-->
                         </div>
                         <div class=" mb-2 mt-2"><a th:attr="href='/blogs/detail/' + ${post.slug}" class="btn btn-warning">READ MORE</a></div>
                     </article>
@@ -69,54 +68,6 @@
                         <li class="course-list"><a th:attr="href='/courses/detail/' + ${course.code}"> <i class="fa fa-hashtag text-warning"></i> <span th:text="${course.displayName}"></span></a></li>
                     </ul>
                 </div>
-
-                <h5 class="category-title mb-4 mt-5">LATEST POSTS</h5>
-                <div>
-                    <a class="text-decoration-none" href="">
-                        <div class="latest-course card mt-3">
-                            <div class="d-flex align-items-center">
-                                <span class="col-4 m-2">
-                                    <img class="card-img" src="https://eduma.thimpress.com/demo-main/wp-content/uploads/sites/95/2015/12/courses-5.jpg" alt="course-detail-img">
-                                </span>
-                                <div class="m-2">
-                                    <h6 class="text-warning">Tên bài viết</h6>
-                                    <span class="d-flex gap-1 mb-0"><p class="mb-0 text-primary" >20/12/2000 </p></span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div>
-                    <a class="text-decoration-none" href="">
-                        <div class="latest-course card mt-3">
-                            <div class="d-flex align-items-center">
-                                <span class="col-4 m-2">
-                                    <img class="card-img" src="https://eduma.thimpress.com/demo-main/wp-content/uploads/sites/95/2015/12/courses-5.jpg" alt="course-detail-img">
-                                </span>
-                                <div class="m-2">
-                                    <h6 class="text-warning">Tên bài viết</h6>
-                                    <span class="d-flex gap-1 mb-0"><p class="mb-0 text-primary" >20/12/2000 </p></span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div>
-                    <a class="text-decoration-none" href="">
-                        <div class="latest-course card mt-3">
-                            <div class="d-flex align-items-center">
-                                <span class="col-4 m-2">
-                                    <img class="card-img" src="https://eduma.thimpress.com/demo-main/wp-content/uploads/sites/95/2015/12/courses-5.jpg" alt="course-detail-img">
-                                </span>
-                                <div class="m-2">
-                                    <h6 class="text-warning">Tên bài viết</h6>
-                                    <span class="d-flex gap-1 mb-0"><p class="mb-0 text-primary" >20/12/2000 </p></span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
             </div>
         </div>
     </div>
