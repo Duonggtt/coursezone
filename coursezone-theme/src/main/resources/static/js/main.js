@@ -156,3 +156,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // Set default view
     setGridView();
 });
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const container = document.getElementById('descriptionContainer');
+    const toggleBtn = document.getElementById('toggleBtn');
+
+    toggleBtn.addEventListener('click', function() {
+        container.classList.toggle('expanded');
+        if (container.classList.contains('expanded')) {
+            toggleBtn.textContent = 'Show less';
+        } else {
+            toggleBtn.textContent = 'Show more';
+        }
+    });
+});

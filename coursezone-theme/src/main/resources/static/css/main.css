@@ -4,6 +4,49 @@
     box-sizing: border-box;
     font-family: sans-serif;
 }
+.mr-1 {
+    margin-right: 10px;
+}
+
+.mr-2 {
+    margin-right: 20px;
+}
+
+.mr-3 {
+    margin-right: 30px;
+}
+
+.mr-4 {
+    margin-right: 40px;
+}
+
+.mr-5 {
+    margin-right: 50px;
+}
+
+.ml-1 {
+    margin-left: 10px;
+}
+
+.ml-2 {
+    margin-left: 20px;
+}
+
+.ml-3 {
+    margin-left: 30px;
+}
+
+.ml-4 {
+    margin-left: 40px;
+}
+
+.ml-5 {
+    margin-left: 50px;
+}
+
+.ml-1 {
+    margin-left: 10px;
+}
 
 ul li a{
     text-decoration: none;
@@ -1087,3 +1130,44 @@ footer a:hover {
     color: #6c757d;
 }
 
+.course-description-container {
+    max-height: 240px; /* Điều chỉnh theo nhu cầu */
+    overflow: hidden;
+    position: relative;
+}
+
+.course-description-container.expanded {
+    max-height: none;
+}
+
+.course-description {
+    margin-bottom: 20px;
+}
+
+.toggle-btn {
+    display: block;
+    margin-top: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+ .navbar-custom {
+     background-color: white;
+     margin-bottom: 90px;
+
+ }
+.navbar-custom .navbar-brand,
+.navbar-custom .nav-link,
+.navbar-custom .navbar-toggler-icon {
+    color: orange !important;
+}
+.navbar-custom .nav-link:hover,
+.navbar-custom .navbar-brand:hover {
+    color: orange !important;
+}
+.spacer {
+    margin-top: 89px; /* Adjust spacing as needed */
+}

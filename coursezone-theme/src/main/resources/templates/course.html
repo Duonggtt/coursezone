@@ -17,7 +17,7 @@
     <div class="container mt-4">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a class="text-warning" href="/">Home</a></li>
+                <li class="breadcrumb-item"><a class="text-warning" href="/home">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Courses</li>
             </ol>
         </nav>
@@ -28,27 +28,25 @@
                 <div class="d-flex justify-content-between align-items-center bg-light p-2 mb-4 rounded">
                     <div class="d-flex align-items-center">
                         <div class="btn-group me-3" role="group" aria-label="View options">
-                            <button type="button" class="btn btn-icon" id="grid-view">
+                            <button type="button" class="btn btn-icon active" id="grid-view">
                                 <i class="fas fa-th"></i>
                             </button>
-                            <button type="button" class="btn btn-icon" id="list-view">
-                                <i class="fas fa-list"></i>
-                            </button>
                         </div>
-                        <span>Showing 1-12 of <span th:text="${paginationCount}"></span> results</span>
+                        <span>Showing <span th:text="${paginationCount}"></span> results</span>
                     </div>
-                    <div class="d-flex">
-                        <select class="form-select me-2" aria-label="Sort by">
-                            <option selected>Newly published</option>
-                            <option value="1">Most popular</option>
-                            <option value="2">Highest rated</option>
-                        </select>
-                        <div class="input-group clean-search">
-                            <input type="text" class="form-control bg-light" placeholder="Search our courses" aria-label="Search courses">
-                            <button class="btn bg-light" type="button">
-                                <i class="fas fa-search text-muted"></i>
-                            </button>
-                        </div>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <form action="/courses" method="get" class="form-inline d-flex align-items-center">
+                            <div class="form-group d-flex align-items-center mr-2">
+                                <select id="limit" name="limit" class="form-control" onchange="this.form.submit()">
+                                    <option th:value="10" th:text="'Limit 10'" th:selected="${limit == 10}"></option>
+                                    <option th:value="25" th:text="'Limit 25'" th:selected="${limit == 25}"></option>
+                                    <option th:value="50" th:text="'Limit 50'" th:selected="${limit == 50}"></option>
+                                </select>
+                            </div>
+                            <div class="form-group mr-3">
+                                <input placeholder="Search name..." type="text" id="keyword" name="keyword" class="form-control" th:value="${searchKeyword}">
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div id="course-container" class="row row-cols-1 row-cols-md-3 g-4 animate">
@@ -65,7 +63,7 @@
                                 <div class="card-body">
                                     <h5 th:text="${course.displayName}" class="card-title"></h5>
                                     <p class="card-text"><small class="text-muted">4.5 <i class="bi bi-star-fill text-warning"></i> (200 reviews)</small></p>
-                                    <p class="card-text">Teacher: <span class="text-primary" th:text="${course.teacher.displayName}"></span> - <span class="text-warning" th:text="${course.lessons}"></span> Lessons</p>
+                                    <p class="card-text">Teacher: <span class="text-warning" th:text="${course.teacher.displayName}"></span> - <span class="text-warning" th:text="${course.lessons}"></span> Lessons</p>
                                     <ul class="list-inline">
                                         <li class="list-inline-item"><i class="bi bi-clock"></i> <span th:text="${course.lessonDuration}"></span> hr</li>
                                         <li class="list-inline-item"><i class="bi bi-book"></i> <span th:text="${course.classType}"></span></li>
@@ -90,113 +88,31 @@
                 </div>
 
                 <!-- Phân trang -->
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-center mt-4 mb-5">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1">Previous</a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                    </ul>
-                </nav>
+
             </div>
 
             <!-- Phần lọc kết quả -->
             <div class="col-md-3 mb-4">
                 <div class="card p-4 animate-x">
-                    <button class="btn btn-outline-secondary mb-3">Refresh</button>
+                    <button id="refreshButton" class="btn btn-outline-secondary mb-3">Refresh</button>
 
-                    <h5 class="category-title">Categories <i class="fa fa-filter text-warning"></i></h5>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="python">
-                        <label class="form-check-label" for="python">Python</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="java">
-                        <label class="form-check-label" for="java">Java</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="javascript">
-                        <label class="form-check-label" for="javascript">JavaScript</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="reactJs">
-                        <label class="form-check-label" for="reactJs">ReactJs</label>
-                    </div>
-
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="ruby">
-                        <label class="form-check-label" for="ruby">Ruby</label>
-                    </div>
-
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="vueJs">
-                        <label class="form-check-label" for="vueJs">VueJs</label>
-                    </div>
-
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="typescript">
-                        <label class="form-check-label" for="typescript">Typescript</label>
-                    </div>
-
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="golang">
-                        <label class="form-check-label" for="golang">Golang</label>
-                    </div>
-
-                    <h5 class="mt-3 category-title">Levels <i class="fa fa-filter text-warning"></i></h5>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="basic">
-                        <label class="form-check-label" for="basic">Beginner</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="intermediate">
-                        <label class="form-check-label" for="intermediate">Intermediate</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="advanced">
-                        <label class="form-check-label" for="advanced">Advanced</label>
-                    </div>
-
-                    <h5 class="mt-3 category-title">Price <i class="fa fa-filter text-warning"></i></h5>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="free">
-                        <label class="form-check-label" for="free">Miễn phí</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="paid">
-                        <label class="form-check-label" for="paid">Có phí</label>
+                    <h5 class="category-title mb-3">Categories <i class="fa fa-filter text-warning"></i></h5>
+                    <div class="form-check mb-2" th:each="category : ${categories}">
+                        <input class="form-check-input category-checkbox" type="checkbox"
+                               th:id="'category_' + ${category.id}"
+                               th:value="${category.id}"
+                               th:checked="${selectedCategories.contains(category.id)}">
+                        <label class="form-check-label" th:for="'category_' + ${category.id}"
+                               th:text="${category.displayName}"></label>
                     </div>
                 </div>
+
 
                 <h5 class="category-title mt-5 mb-4">ALL COURSES</h5>
                 <div th:each="course: ${pagination}">
                     <ul class="mb-0">
                         <li class="course-list"><a th:attr="href='/courses/detail/' + ${course.code}"> <i class="fa fa-hashtag text-warning"></i> <span th:text="${course.displayName}"></span></a></li>
                     </ul>
-                </div>
-
-                <h5 class="category-title mb-4 mt-5">LATEST COURSES</h5>
-                <div th:each="course: ${pagination}">
-                    <a class="text-decoration-none" th:attr="href='/courses/detail/' + ${course.code}">
-                        <div class="latest-course card mt-2">
-                            <div class="d-flex align-items-center">
-                                <span class="col-4 m-2">
-                                    <img class="card-img" th:src="${course.bannerImage.getUrlOrNull()}" alt="course-detail-img">
-                                </span>
-                                <div class="m-2">
-                                    <h6 class="text-warning" th:text="${course.displayName}"></h6>
-                                    <span class="d-flex gap-1 mb-0"><p class="mb-0 text-primary" th:text="${#numbers.formatDecimal(course.price, 1, 'POINT', 0, 'COMMA')}"> </p><p class="mb-0"> $</p></span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
                 </div>
             </div>
         </div>
@@ -206,6 +122,36 @@
     <script ezy:vsrc="/js/ezyclient-1.0.3.min.js"></script>
     <script ezy:vsrc="/js/phaser.min.js"></script>
     <script ezy:vsrc="/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkboxes = document.querySelectorAll('.category-checkbox');
+            const refreshButton = document.getElementById('refreshButton');
+
+            function filterCourses() {
+                const selectedCategories = Array.from(checkboxes)
+                    .filter(cb => cb.checked)
+                    .map(cb => cb.value);
+
+                // Create a new URL with the selected categories
+                const url = new URL(window.location);
+                url.searchParams.set('categoryIds', selectedCategories.join(','));
+
+                // Reload the page with the new URL
+                window.location = url;
+            }
+
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', filterCourses);
+            });
+
+            refreshButton.addEventListener('click', function() {
+                const url = new URL(window.location);
+                url.searchParams.delete('categoryIds'); // Remove the selected categories
+                window.location = url;
+            });
+        });
+
+    </script>
 </th:block>
 </body>
 </html>

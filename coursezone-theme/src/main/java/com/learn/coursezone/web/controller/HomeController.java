@@ -37,8 +37,8 @@ public class HomeController {
     private final WebWhyChooseUsControllerService whyChooseUsControllerService;
     private final WebEClassModelDecorator eclassModelDecorator;
 
-    @DoGet("/")
-    public View home(HttpServletRequest request, @UserId Long userId, @RequestParam("keyword") String keyword, @RequestParam("nextPageToken") String nextPageToken, @RequestParam("prevPageToken") String prevPageToken, @RequestParam("lastPage") boolean lastPage, @RequestParam(value = "limit",defaultValue = "6") int limit) {
+    @DoGet("/home")
+    public View home(HttpServletRequest request, @UserId Long userId, @RequestParam("keyword") String keyword, @RequestParam("nextPageToken") String nextPageToken, @RequestParam("prevPageToken") String prevPageToken, @RequestParam("lastPage") boolean lastPage, @RequestParam(value = "limit",defaultValue = "4") int limit) {
         SimpleProductCurrencyModel defaultCurrency = this.productCurrencyService.getSimpleDefaultCurrency();
         PaginationModel<WebEClassResponse> pagination = this.eclassControllerService.getPublicClasses(userId, keyword, nextPageToken, prevPageToken, lastPage, limit, defaultCurrency.getId(), defaultCurrency.getFormat());
         String language = getLanguage(request);
