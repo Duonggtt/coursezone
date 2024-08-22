@@ -19,7 +19,8 @@ public class CourseZoneWebViewDecorator extends WebViewDecorator {
     @Override
     public void decorate(HttpServletRequest request, View view) {
         super.decorate(request, view);
-        ShopDetailsModel shopDetailsModel = this.shopDetailsService.getDefaultActivatedShopDetails();
+        ShopDetailsModel shopDetailsModel
+            = this.shopDetailsService.getDefaultActivatedShopDetails();
         view.setVariable("shopDetail", shopDetailsModel);
     }
 }

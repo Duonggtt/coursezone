@@ -30,7 +30,7 @@
         </div>
     </div>
 
-    <!-- Login/Register Modal -->
+<!--     Login/Register Modal-->
     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content">
@@ -59,18 +59,22 @@
 
                     <!-- Register Form -->
                     <div id="registerForm" class="d-none">
-                        <form>
+                        <form id="registerUserForm" method="POST" action="/register">
+
+                            <div id="successMessage" class="alert alert-success d-none"></div>
+                            <div id="errorMessages" class="alert alert-danger d-none"></div>
+                            <!-- Các input fields -->
                             <div class="mb-3">
-                                <label for="registerName" class="form-label">Full Name</label>
-                                <input type="text" class="form-control" id="registerName" placeholder="Enter your full name" required>
+                                <label for="registerName" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="registerName" name="username" placeholder="Enter your username" required>
                             </div>
                             <div class="mb-3">
-                                <label for="registerEmail" class="form-label">Email address</label>
-                                <input type="email" class="form-control" id="registerEmail" placeholder="Enter your email" required>
+                                <label for="registerEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="registerEmail" name="email" placeholder="Enter your email" required>
                             </div>
                             <div class="mb-3">
-                                <label for="registerPassword" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="registerPassword" placeholder="Enter your password" required>
+                                <label for="registerPhone" class="form-label">Phone</label>
+                                <input type="text" class="form-control" id="registerPhone" name="phone" placeholder="Enter your phone number" required>
                             </div>
                             <button type="submit" class="btn btn-primary w-100">Register</button>
                         </form>
@@ -78,13 +82,11 @@
                             <p>Already have an account? <a href="#" id="showLoginForm">Login</a></p>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
-
-
-
 
     <section class="featured-courses py-5 bg-light animate">
         <div class="container">
@@ -154,12 +156,11 @@
                 </div>
                 <div class="col-md-4 m-auto animate">
                     <div class="registration-form">
-                        <h2>Create your free account now and immediately get access to 100s of online courses.</h2>
                         <form>
                             <input type="text" placeholder="Your Name *" required>
                             <input type="email" placeholder="Email *" required>
                             <input type="tel" placeholder="Phone *" required>
-                            <button type="submit" class="get-it-now-btn">GET IT NOW</button>
+                            <a href="/blogs"><button type="submit" class="get-it-now-btn">GET IT NOW</button></a>
                         </form>
                     </div>
                 </div>
@@ -260,7 +261,7 @@
     <section class="testimonials py-5 bg-light animate pb-1">
         <div class="container">
             <h2 class="text-center mb-1 mt-4">What People Say</h2>
-            <p class="text-center mb-5 sec-title">How real people said about Education WordPress Theme.</p>
+            <p class="text-center mb-5 sec-title">How real people said about us.</p>
 
             <div class="swiper testimonial-swiper">
                 <div class="swiper-wrapper">
@@ -392,6 +393,56 @@
                 modalTitle.textContent = 'Login';  // Thay đổi tiêu đề thành "Login"
             });
         });
+
+         //auth
+        document.getElementById('registerUserForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Ẩn các thông báo cũ trước khi gửi form
+            hideMessages();
+
+            let formData = new FormData(this);
+
+            fetch('/register', {
+                method: 'POST',
+                body: formData
+            }).then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        displayMessage('successMessage', data.message);
+                        closeModal('registerModal', 'successMessage');
+                    } else {
+                        displayMessage('errorMessages', data.errors ? formatErrors(data.errors) : data.message);
+                    }
+                }).catch(error => {
+                console.error('Error:', error);
+                displayMessage('errorMessages', 'An unexpected error occurred.');
+            });
+        });
+
+        function hideMessages() {
+            document.getElementById('successMessage').classList.add('d-none');
+            document.getElementById('errorMessages').classList.add('d-none');
+        }
+
+        function displayMessage(elementId, message) {
+            let element = document.getElementById(elementId);
+            element.innerHTML = typeof message === 'string' ? message : message.join('<br>');
+            element.classList.remove('d-none');
+        }
+
+        function closeModal(modalId, messageElementId) {
+            setTimeout(() => {
+                $('#' + modalId).modal('hide');
+                document.getElementById(messageElementId).classList.add('d-none');
+            }, 2000);
+        }
+
+        function formatErrors(errors) {
+            return Object.keys(errors).map(key => `${key}: ${errors[key]}`);
+        }
+
+
 
     </script>
 
