@@ -1,6 +1,7 @@
 package com.learn.coursezone.web.controller;
 
 import com.learn.coursezone.web.generator.PasswordGenerator;
+import com.learn.coursezone.web.generator.UsernameGenerator;
 import com.tvd12.ezyhttp.core.exception.HttpBadRequestException;
 import com.tvd12.ezyhttp.core.response.ResponseEntity;
 import com.tvd12.ezyhttp.server.core.annotation.*;
@@ -10,15 +11,21 @@ import org.youngmonkeys.ecommerce.model.SimpleProductCurrencyModel;
 import org.youngmonkeys.ecommerce.web.service.WebProductCurrencyService;
 import org.youngmonkeys.elearning.web.controller.service.WebEClassControllerService;
 import org.youngmonkeys.elearning.web.response.WebEClassResponse;
+import org.youngmonkeys.ezylogin.web.controller.decorator.LoginResponseDecorators;
 import org.youngmonkeys.ezyplatform.model.PaginationModel;
+import org.youngmonkeys.ezyplatform.model.UserAccessTokenModel;
 import org.youngmonkeys.ezyplatform.web.annotation.UserId;
 import org.youngmonkeys.ezyplatform.web.controller.service.WebUserControllerService;
+import org.youngmonkeys.ezyplatform.web.converter.WebModelToResponseConverter;
+import org.youngmonkeys.ezyplatform.web.request.LoginRequest;
 import org.youngmonkeys.ezyplatform.web.request.RegisterRequest;
+import org.youngmonkeys.ezyplatform.web.response.LoginResponse;
 import org.youngmonkeys.ezysupport.web.controller.service.WebWhyChooseUsControllerService;
 import org.youngmonkeys.ezysupport.web.response.WebWhyChooseUsResponse;
 import org.youngmonkeys.ezysupport.web.view.SupportViewBuilderDecorator;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -36,6 +43,7 @@ public class HomeController {
     private final WebProductCurrencyService productCurrencyService;
     private final WebWhyChooseUsControllerService whyChooseUsControllerService;
     private final WebUserControllerService userControllerService;
+    private final WebModelToResponseConverter modelToResponseConverter;
 
     @DoGet("/home")
     public View home(HttpServletRequest request,
@@ -81,21 +89,21 @@ public class HomeController {
     public ResponseEntity registerUser(
         @RequestParam("username") String username,
         @RequestParam("email") String email,
-        @RequestParam("phone") String phone) {
+        @RequestParam("phone") String phone,
+        @RequestParam("password") String password) {
         Map<String, Object> response = new HashMap<>();
 
         try {
-            String password = PasswordGenerator.generateRandomPassword(8);
 
             RegisterRequest registerRequest = new RegisterRequest();
             registerRequest.setDisplayName(username);
             registerRequest.setUsername(username);
             registerRequest.setEmail(email);
             registerRequest.setPhoneNumber(phone);
-            registerRequest.setPassword(password);
+            registerRequest.setPassword(password);q
 
             // Đăng ký người dùng
-            userControllerService.registerUser(registerRequest, "active");
+            userControllerService.registerUser(registerRequest, "Activated");
 
             response.put("success", true);
             response.put("message", "Registration successful!");
@@ -112,6 +120,48 @@ public class HomeController {
         }
     }
 
+    @DoPost("/subscribe")
+    public ResponseEntity subscribeUser(
+        @RequestParam("emailSubscribe") String email) {
+
+        Map<String, Object> response = new HashMap<>();
+
+        try {
+            String password = PasswordGenerator.generateRandomPassword(8);
+            String username = UsernameGenerator.generateRandomUsername();
+
+            RegisterRequest registerRequest = new RegisterRequest();
+            registerRequest.setDisplayName(username);
+            registerRequest.setUsername(username);
+            registerRequest.setEmail(email);
+            registerRequest.setPhoneNumber(null);
+            registerRequest.setPassword(password);
+
+            // Đăng ký người dùng
+            userControllerService.registerUser(registerRequest, "active");
+
+            response.put("success", true);
+            response.put("message", "Subscribe successful! Wait for our response.");
+            return ResponseEntity.ok(response);
+
+        } catch (HttpBadRequestException e) {
+            response.put("success", false);
+            response.put("errors", e.getCause());
+            return ResponseEntity.badRequest(response);
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", "Subscribe failed due to an unexpected error.");
+            return ResponseEntity.ok(ResponseEntity.status(500));
+        }
+    }
+
+    @DoPost("/login")
+    public LoginResponse authenticateUser(HttpServletResponse response, @RequestBody LoginRequest request) {
+
+        UserAccessTokenModel accessToken = this.userControllerService.authenticateUser(request);
+        LoginResponseDecorators.decorateToAddUserAccessToken(response, accessToken);
+        return modelToResponseConverter.toLoginResponse(accessToken);
+    }
 
 
 }
