@@ -25,58 +25,205 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/contact-us">Contact</a>
                     </li>
-                    <li class="nav-item btn-group">
-                        <button class="nav-link nav-avatar" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
-                            <span class="avatar">
-                                <img src="https://th.bing.com/th/id/OIP.17thNOPE3_TENecGmgABaAAAAA?rs=1&pid=ImgDetMain" alt="avatar">
-                            </span>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-lg-end">
-                            <li><a class="dropdown-item text-center" href="#">Language <i class="fa fa-globe"></i></a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li>
-                                <a class="dropdown-item text-center" href="#">
-                                    <button class="logout-btn">
-                                        Logout <i class="fas fa-sign-out-alt"></i>
-                                    </button>
-                                </a>
-                            </li>
-                        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="modal" data-bs-target="#loginModal" id="loginLink">Login</a>
+                    </li>
+                    <li class="nav-item d-none" id="userMenu">
+                        <a class="nav-link username-text" id="username">Username</a>
+                        <span class="separator">|</span>
+                        <a class="nav-link" href="#" id="logout">
+                            Logout <i class="bi bi-box-arrow-right logout-icon"></i>
+                        </a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
+
+    <!-- Bootstrap Alerts -->
+<!--    <div id="loginAlert" class="alert alert-success alert-dismissible fade d-none" role="alert">-->
+<!--        <span id="loginAlertMessage"></span>-->
+<!--        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>-->
+<!--    </div>-->
+<!--    <div id="errorAlert" class="alert alert-danger alert-dismissible fade d-none" role="alert">-->
+<!--        <span id="errorAlertMessage"></span>-->
+<!--        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>-->
+<!--    </div>-->
+<!--    <div id="logoutAlert" class="alert alert-info alert-dismissible fade d-none" role="alert">-->
+<!--        <span id="logoutAlertMessage"></span>-->
+<!--        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>-->
+<!--    </div>-->
+
+
+    <!-- Login/Register Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">Login</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Login Form -->
+                    <div id="loginForm">
+                        <form>
+                            <div class="mb-3">
+                                <label for="loginUsername" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="loginUsername" placeholder="Enter your username" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="loginPassword" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="loginPassword" placeholder="Enter your password" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Login</button>
+                        </form>
+                        <div class="text-center mt-3">
+                            <p>Don't have an account? <a href="#" id="showRegisterForm">Register here</a></p>
+                        </div>
+                    </div>
+
+                    <!-- Register Form -->
+                    <div id="registerForm" class="d-none">
+                        <form id="registerUserForm" method="POST" action="/register">
+                            <div id="successMessage" class="alert alert-success d-none"></div>
+                            <div id="errorMessages" class="alert alert-danger d-none"></div>
+                            <!-- Input fields -->
+                            <div class="mb-3">
+                                <label for="registerName" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="registerName" name="username" placeholder="Enter your username" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="registerEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="registerEmail" name="email" placeholder="Enter your email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="registerPhone" class="form-label">Phone</label>
+                                <input type="text" class="form-control" id="registerPhone" name="phone" placeholder="Enter your phone number" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="registerPassword" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="registerPassword" name="password" placeholder="Enter your username" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Register</button>
+                        </form>
+                        <div class="text-center mt-3">
+                            <p>Already have an account? <a href="#" id="showLoginForm">Login</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="d-flex tex">
-    <div></div>
-    <div></div>
-</div>
 <script th:fragment="scripts" type="text/javascript">
-    $(document).ready(function () {
-        const currentPath = window.location.pathname;
-
-        if (currentPath === '/about-us') {
-            $('#mainNavbar').addClass('navbar-custom');
+    // Check login status on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        const username = localStorage.getItem('username');
+        if (username) {
+            document.getElementById('loginLink').classList.add('d-none');
+            document.getElementById('userMenu').classList.remove('d-none');
+            document.getElementById('username').innerText = username;
         }
-        if (currentPath === '/contact-us') {
-            $('#mainNavbar').addClass('navbar-custom');
-            $('body').addClass('spacer');
-        }
+    });
 
-        $('.nav-item a').each(function () {
-            const linkPath = $(this).attr('href');
-            if (currentPath.startsWith(linkPath)) {
-                $(this).addClass('active');
-            }
-        });
+    document.querySelector('#loginForm form').addEventListener('submit', function(event) {
+        event.preventDefault();
 
-        $('.nav-item a').on('click', function () {
-            $('.nav-item a').removeClass('active');
-            $(this).addClass('active');
-        });
+        var loginData = {
+            username: document.getElementById('loginUsername').value,
+            password: document.getElementById('loginPassword').value
+        };
+
+        fetch('/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(loginData)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.accessToken) {
+                    // Hiển thị thông báo thành công
+                    showAlert('loginAlert', 'loginAlertMessage', 'Successfully logged in!');
+
+                    setTimeout(function() {
+                        // Store username in localStorage
+                        localStorage.setItem('username', loginData.username);
+
+                        // Update navbar
+                        document.getElementById('loginLink').classList.add('d-none');
+                        document.getElementById('userMenu').classList.remove('d-none');
+                        document.getElementById('username').innerText = loginData.username;
+
+                        // Close the modal
+                        $('#loginModal').modal('hide');
+
+                        // Chuyển hướng sau khi đăng nhập thành công
+                        window.location.href = '/home';
+                    }, 1500);
+                } else {
+                    // Hiển thị thông báo lỗi
+                    showAlert('errorAlert', 'errorAlertMessage', 'Login failed: ' + (data.message || 'Invalid credentials'));
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Hiển thị thông báo lỗi khi có lỗi xảy ra
+                showAlert('errorAlert', 'errorAlertMessage', 'An error occurred while logging in.');
+            });
+    });
+
+    // Handle logout
+    document.getElementById('logout').addEventListener('click', function() {
+        // Hiển thị thông báo đăng xuất thành công
+        showAlert('logoutAlert', 'logoutAlertMessage', 'Successfully logged out.');
+        setTimeout(function() {
+            // Clear user data from localStorage
+            localStorage.removeItem('username');
+
+            // Update navbar
+            document.getElementById('loginLink').classList.remove('d-none');
+            document.getElementById('userMenu').classList.add('d-none');
+
+            window.location.href = '/home';
+        }, 1500);
+    });
+
+    // Hàm hiển thị thông báo
+    function showAlert(alertId, messageId, message) {
+        var alertElement = document.getElementById(alertId);
+        var messageElement = document.getElementById(messageId);
+        messageElement.innerText = message;
+        alertElement.classList.remove('d-none');
+
+        // Thêm lớp 'show' để tạo hiệu ứng trượt xuống
+        setTimeout(function() {
+            alertElement.classList.add('show');
+        }, 100); // Độ trễ nhỏ để đảm bảo hiệu ứng hoạt động mượt mà
+
+        // Tự động ẩn sau 5 giây
+        setTimeout(function() {
+            alertElement.classList.remove('show');
+            setTimeout(function() {
+                alertElement.classList.add('d-none');
+            }, 300); // Đảm bảo thời gian trượt lên trước khi ẩn hoàn toàn
+        }, 3000);
+    }
+
+
+    // Toggle between login and register forms
+    document.getElementById('showRegisterForm').addEventListener('click', function() {
+        document.getElementById('loginForm').classList.add('d-none');
+        document.getElementById('registerForm').classList.remove('d-none');
+    });
+
+    document.getElementById('showLoginForm').addEventListener('click', function() {
+        document.getElementById('registerForm').classList.add('d-none');
+        document.getElementById('loginForm').classList.remove('d-none');
     });
 </script>
+
 </body>
 </html>

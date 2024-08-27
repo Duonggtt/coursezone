@@ -1236,3 +1236,29 @@ footer a:hover {
 .d-none {
     display: none;
 }
+
+#userMenu {
+    display: flex;
+    align-items: center;
+}
+
+.username-text {
+    color: #FFA500; /* Màu cam cho tên người dùng */
+    font-weight: bold;
+}
+
+#userMenu .separator {
+    margin: 0 10px;
+    color: #ffffff; /* Thanh kẻ dọc màu trắng */
+    font-weight: bold;
+}
+
+#userMenu #logout {
+    color: #ffffff; /* Màu trắng cho chữ Logout */
+}
+
+#userMenu .logout-icon {
+    color: #ffffff; /* Màu trắng cho biểu tượng Logout */
+    margin-left: 5px; /* Khoảng cách giữa chữ Logout và biểu tượng */
+}
+

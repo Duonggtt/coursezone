@@ -24,70 +24,7 @@
                     <div class="text-white header-content-section"
                          th:utext="${mainHeadingFragments.get('description').content}">
                     </div>
-                    <button class="get-started-btn btn btn-light mt-3 border-0" data-bs-toggle="modal" data-bs-target="#loginModal">Get Started</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-<!--     Login/Register Modal-->
-    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">Login</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Login Form -->
-                    <div id="loginForm">
-                        <form>
-                            <div class="mb-3">
-                                <label for="loginUsername" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="loginUsername" placeholder="Enter your username" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="loginPassword" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="loginPassword" placeholder="Enter your password" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary w-100">Login</button>
-                        </form>
-                        <div class="text-center mt-3">
-                            <p>Don't have an account? <a href="#" id="showRegisterForm">Register here</a></p>
-                        </div>
-                    </div>
-
-
-                    <!-- Register Form -->
-                    <div id="registerForm" class="d-none">
-                        <form id="registerUserForm" method="POST" action="/register">
-
-                            <div id="successMessage" class="alert alert-success d-none"></div>
-                            <div id="errorMessages" class="alert alert-danger d-none"></div>
-                            <!-- Các input fields -->
-                            <div class="mb-3">
-                                <label for="registerName" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="registerName" name="username" placeholder="Enter your username" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="registerEmail" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="registerEmail" name="email" placeholder="Enter your email" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="registerPhone" class="form-label">Phone</label>
-                                <input type="text" class="form-control" id="registerPhone" name="phone" placeholder="Enter your phone number" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="registerPassword" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="registerPassword" name="password" placeholder="Enter your username" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary w-100">Register</button>
-                        </form>
-                        <div class="text-center mt-3">
-                            <p>Already have an account? <a href="#" id="showLoginForm">Login</a></p>
-                        </div>
-                    </div>
-
+                    <button class="get-started-btn btn btn-light mt-3 border-0" id="getStartedBtn">Get Started</button>
                 </div>
             </div>
         </div>
@@ -327,6 +264,21 @@
         }, 1000);
 
 
+        document.addEventListener('DOMContentLoaded', function() {
+            const getStartedBtn = document.getElementById('getStartedBtn');
+
+            getStartedBtn.addEventListener('click', function() {
+                const username = localStorage.getItem('username');
+                if (username) {
+                    // Nếu đã đăng nhập, chuyển hướng đến trang /course
+                    window.location.href = '/courses';
+                } else {
+                    // Nếu chưa đăng nhập, hiển thị modal đăng nhập
+                    const loginModal = new bootstrap.Modal(document.getElementById('loginModal'), {});
+                    loginModal.show();
+                }
+            });
+        });
 
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -377,93 +329,6 @@
                 modalTitle.textContent = 'Login';  // Thay đổi tiêu đề thành "Login"
             });
         });
-
-         //auth
-        document.getElementById('registerUserForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            // Ẩn các thông báo cũ trước khi gửi form
-            hideMessages();
-
-            let formData = new FormData(this);
-
-            fetch('/register', {
-                method: 'POST',
-                body: formData
-            }).then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        displayMessage('successMessage', data.message);
-                        closeModal('registerModal', 'successMessage');
-                    } else {
-                        displayMessage('errorMessages', data.errors ? formatErrors(data.errors) : data.message);
-                    }
-                }).catch(error => {
-                console.error('Error:', error);
-                displayMessage('errorMessages', 'An unexpected error occurred.');
-            });
-        });
-
-        function hideMessages() {
-            document.getElementById('successMessage').classList.add('d-none');
-            document.getElementById('errorMessages').classList.add('d-none');
-        }
-
-        function displayMessage(elementId, message) {
-            let element = document.getElementById(elementId);
-            element.innerHTML = typeof message === 'string' ? message : message.join('<br>');
-            element.classList.remove('d-none');
-        }
-
-        function closeModal(modalId, messageElementId) {
-            setTimeout(() => {
-                $('#' + modalId).modal('hide');
-                document.getElementById(messageElementId).classList.add('d-none');
-            }, 2000);
-        }
-
-        function formatErrors(errors) {
-            return Object.keys(errors).map(key => `${key}: ${errors[key]}`);
-        }
-
-        //login
-        document.querySelector('#loginForm form').addEventListener('submit', function(event) {
-            event.preventDefault(); // Ngăn chặn hành động submit mặc định của form
-
-            // Lấy giá trị của username và password từ form
-            var username = document.getElementById('loginUsername').value;
-            var password = document.getElementById('loginPassword').value;
-
-            // Tạo đối tượng chứa thông tin đăng nhập
-            var loginData = {
-                username: username,
-                password: password
-            };
-
-            // Gửi yêu cầu POST tới server
-            fetch('/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(loginData)
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('Login successful!');
-                        // Chuyển hướng người dùng tới trang khác nếu cần
-                        window.location.href = '/courses';
-                    } else {
-                        alert('Login failed: ' + data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred while logging in.');
-                });
-        });
-
 
         //subscribe
         document.getElementById('subscribeForm').addEventListener('submit', function(event) {

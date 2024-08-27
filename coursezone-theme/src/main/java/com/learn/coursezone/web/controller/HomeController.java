@@ -12,6 +12,10 @@ import org.youngmonkeys.ecommerce.web.service.WebProductCurrencyService;
 import org.youngmonkeys.elearning.web.controller.service.WebEClassControllerService;
 import org.youngmonkeys.elearning.web.response.WebEClassResponse;
 import org.youngmonkeys.ezylogin.web.controller.decorator.LoginResponseDecorators;
+import org.youngmonkeys.ezylogin.web.service.LoginMailService;
+import org.youngmonkeys.ezylogin.web.service.WebEzyLoginSettingService;
+import org.youngmonkeys.ezylogin.web.validator.LoginAuthenticationValidator;
+import org.youngmonkeys.ezyplatform.entity.UserStatus;
 import org.youngmonkeys.ezyplatform.model.PaginationModel;
 import org.youngmonkeys.ezyplatform.model.UserAccessTokenModel;
 import org.youngmonkeys.ezyplatform.web.annotation.UserId;
@@ -20,6 +24,7 @@ import org.youngmonkeys.ezyplatform.web.converter.WebModelToResponseConverter;
 import org.youngmonkeys.ezyplatform.web.request.LoginRequest;
 import org.youngmonkeys.ezyplatform.web.request.RegisterRequest;
 import org.youngmonkeys.ezyplatform.web.response.LoginResponse;
+import org.youngmonkeys.ezyplatform.web.response.RegisterResponse;
 import org.youngmonkeys.ezysupport.web.controller.service.WebWhyChooseUsControllerService;
 import org.youngmonkeys.ezysupport.web.response.WebWhyChooseUsResponse;
 import org.youngmonkeys.ezysupport.web.view.SupportViewBuilderDecorator;
@@ -44,6 +49,9 @@ public class HomeController {
     private final WebWhyChooseUsControllerService whyChooseUsControllerService;
     private final WebUserControllerService userControllerService;
     private final WebModelToResponseConverter modelToResponseConverter;
+    private final WebEzyLoginSettingService settingService;
+    private final LoginMailService mailService;
+    private final LoginAuthenticationValidator authenticationValidator;
 
     @DoGet("/home")
     public View home(HttpServletRequest request,
@@ -86,38 +94,16 @@ public class HomeController {
     }
 
     @DoPost("/register")
-    public ResponseEntity registerUser(
-        @RequestParam("username") String username,
-        @RequestParam("email") String email,
-        @RequestParam("phone") String phone,
-        @RequestParam("password") String password) {
-        Map<String, Object> response = new HashMap<>();
-
-        try {
-
-            RegisterRequest registerRequest = new RegisterRequest();
-            registerRequest.setDisplayName(username);
-            registerRequest.setUsername(username);
-            registerRequest.setEmail(email);
-            registerRequest.setPhoneNumber(phone);
-            registerRequest.setPassword(password);q
-
-            // Đăng ký người dùng
-            userControllerService.registerUser(registerRequest, "Activated");
-
-            response.put("success", true);
-            response.put("message", "Registration successful!");
-            return ResponseEntity.ok(response);
-
-        } catch (HttpBadRequestException e) {
-            response.put("success", false);
-            response.put("errors", e.getCause());
-            return ResponseEntity.badRequest(response);
-        } catch (Exception e) {
-            response.put("success", false);
-            response.put("message", "Registration failed due to an unexpected error.");
-            return ResponseEntity.ok(ResponseEntity.status(500));
+    public RegisterResponse registerPost(HttpServletResponse response, @RequestBody RegisterRequest request) {
+        authenticationValidator.validate(request);
+        boolean activationRequired = settingService.isActivationRequired();
+        UserAccessTokenModel accessToken = userControllerService.registerUser(request, activationRequired ? UserStatus.INACTIVATED.toString() : UserStatus.ACTIVATED.toString());
+        if (activationRequired) {
+            mailService.sendActivationMail(accessToken.getUserId());
         }
+
+        LoginResponseDecorators.decorateToAddUserAccessToken(response, accessToken);
+        return this.modelToResponseConverter.toRegisterResponse(accessToken);
     }
 
     @DoPost("/subscribe")
@@ -138,7 +124,7 @@ public class HomeController {
             registerRequest.setPassword(password);
 
             // Đăng ký người dùng
-            userControllerService.registerUser(registerRequest, "active");
+            userControllerService.registerUser(registerRequest, "ACTIVATED");
 
             response.put("success", true);
             response.put("message", "Subscribe successful! Wait for our response.");
@@ -157,10 +143,9 @@ public class HomeController {
 
     @DoPost("/login")
     public LoginResponse authenticateUser(HttpServletResponse response, @RequestBody LoginRequest request) {
-
         UserAccessTokenModel accessToken = this.userControllerService.authenticateUser(request);
         LoginResponseDecorators.decorateToAddUserAccessToken(response, accessToken);
-        return modelToResponseConverter.toLoginResponse(accessToken);
+        return this.modelToResponseConverter.toLoginResponse(accessToken);
     }
 
 
