@@ -27,7 +27,7 @@ $(document).ready(function () {
     }
 });
 
-//chuyen dong của content khi scroll
+// Chuyển động của content khi scroll
 function checkScroll() {
     var elements = document.querySelectorAll('.animate');
     var windowHeight = window.innerHeight;
@@ -65,61 +65,65 @@ checkScrollX();
 // Thực hiện hàm checkScroll mỗi khi người dùng cuộn trang
 window.addEventListener('scroll', checkScroll);
 
-
 document.addEventListener('DOMContentLoaded', function() {
     const testimonialImages = document.querySelectorAll('.testimonial-images img');
 
-    testimonialImages.forEach(img => {
-        img.addEventListener('click', function() {
-            // Xóa class active từ tất cả các hình ảnh
-            testimonialImages.forEach(image => image.classList.remove('active'));
+    if (testimonialImages.length > 0) { // Kiểm tra nếu các phần tử tồn tại
+        testimonialImages.forEach(img => {
+            img.addEventListener('click', function() {
+                // Xóa class active từ tất cả các hình ảnh
+                testimonialImages.forEach(image => image.classList.remove('active'));
 
-            // Thêm class active vào hình ảnh được click
-            this.classList.add('active');
+                // Thêm class active vào hình ảnh được click
+                this.classList.add('active');
 
-            // Lấy index của hình ảnh được click
-            const index = parseInt(this.getAttribute('data-index'));
+                // Lấy index của hình ảnh được click
+                const index = parseInt(this.getAttribute('data-index'));
 
-            // Di chuyển hình ảnh được click vào giữa
-            const container = this.parentElement;
-            const scrollAmount = img.offsetWidth * (index - 2);
-            container.scrollTo({
-                left: scrollAmount,
-                behavior: 'smooth'
+                // Di chuyển hình ảnh được click vào giữa
+                const container = this.parentElement;
+                const scrollAmount = img.offsetWidth * (index - 2);
+                container.scrollTo({
+                    left: scrollAmount,
+                    behavior: 'smooth'
+                });
             });
         });
-    });
+    }
 });
 
-
 document.addEventListener('DOMContentLoaded', function() {
-    new Swiper('.swiper-container', {
-        slidesPerView: 'auto',
-        spaceBetween: 20,
-        loop: true,
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-        autoplay: {
-            delay: 3000,
-            disableOnInteraction: false,
-        },
-        breakpoints: {
-            // Khi màn hình >= 768px
-            768: {
-                slidesPerView: 2,
+    const swiperContainer = document.querySelector('.swiper-container');
+
+    if (swiperContainer) { // Kiểm tra nếu phần tử tồn tại
+        new Swiper(swiperContainer, {
+            slidesPerView: 'auto',
+            spaceBetween: 20,
+            loop: true,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
             },
-            // Khi màn hình >= 1024px
-            1024: {
-                slidesPerView: 3,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            breakpoints: {
+                // Khi màn hình >= 768px
+                768: {
+                    slidesPerView: 2,
+                },
+                // Khi màn hình >= 1024px
+                1024: {
+                    slidesPerView: 3,
+                }
             }
-        }
-    });
+        });
+    }
 });
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -128,46 +132,49 @@ document.addEventListener('DOMContentLoaded', function() {
     const courseContainer = document.getElementById('course-container');
     const courseItems = document.querySelectorAll('.course-item');
 
-    function setGridView() {
-        courseContainer.classList.remove('row-cols-md-12');
-        courseContainer.classList.add('row-cols-md-3');
-        courseItems.forEach(item => {
-            item.classList.remove('mb-4');
-            item.classList.add('mb-4');
-        });
-        gridBtn.classList.add('active');
-        listBtn.classList.remove('active');
+    if (gridBtn && listBtn && courseContainer && courseItems.length > 0) { // Kiểm tra nếu các phần tử tồn tại
+        function setGridView() {
+            courseContainer.classList.remove('row-cols-md-12');
+            courseContainer.classList.add('row-cols-md-3');
+            courseItems.forEach(item => {
+                item.classList.remove('mb-4');
+                item.classList.add('mb-4');
+            });
+            gridBtn.classList.add('active');
+            listBtn.classList.remove('active');
+        }
+
+        function setListView() {
+            courseContainer.classList.remove('row-cols-md-3');
+            courseContainer.classList.add('row-cols-md-12');
+            courseItems.forEach(item => {
+                item.classList.remove('mb-4');
+                item.classList.add('mb-4');
+            });
+            listBtn.classList.add('active');
+            gridBtn.classList.remove('active');
+        }
+
+        gridBtn.addEventListener('click', setGridView);
+        listBtn.addEventListener('click', setListView);
+
+        // Set default view
+        setGridView();
     }
-
-    function setListView() {
-        courseContainer.classList.remove('row-cols-md-3');
-        courseContainer.classList.add('row-cols-md-12');
-        courseItems.forEach(item => {
-            item.classList.remove('mb-4');
-            item.classList.add('mb-4');
-        });
-        listBtn.classList.add('active');
-        gridBtn.classList.remove('active');
-    }
-
-    gridBtn.addEventListener('click', setGridView);
-    listBtn.addEventListener('click', setListView);
-
-    // Set default view
-    setGridView();
 });
-
 
 document.addEventListener('DOMContentLoaded', function() {
     const container = document.getElementById('descriptionContainer');
     const toggleBtn = document.getElementById('toggleBtn');
 
-    toggleBtn.addEventListener('click', function() {
-        container.classList.toggle('expanded');
-        if (container.classList.contains('expanded')) {
-            toggleBtn.textContent = 'Show less';
-        } else {
-            toggleBtn.textContent = 'Show more';
-        }
-    });
+    if (container && toggleBtn) { // Kiểm tra nếu các phần tử tồn tại
+        toggleBtn.addEventListener('click', function() {
+            container.classList.toggle('expanded');
+            if (container.classList.contains('expanded')) {
+                toggleBtn.textContent = 'Show less';
+            } else {
+                toggleBtn.textContent = 'Show more';
+            }
+        });
+    }
 });

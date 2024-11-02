@@ -49,8 +49,6 @@ public class HomeController {
     private final WebWhyChooseUsControllerService whyChooseUsControllerService;
     private final WebUserControllerService userControllerService;
     private final WebModelToResponseConverter modelToResponseConverter;
-    private final WebEzyLoginSettingService settingService;
-    private final LoginMailService mailService;
     private final LoginAuthenticationValidator authenticationValidator;
 
     @DoGet("/home")
@@ -96,12 +94,7 @@ public class HomeController {
     @DoPost("/register")
     public RegisterResponse registerPost(HttpServletResponse response, @RequestBody RegisterRequest request) {
         authenticationValidator.validate(request);
-        boolean activationRequired = settingService.isActivationRequired();
-        UserAccessTokenModel accessToken = userControllerService.registerUser(request, activationRequired ? UserStatus.INACTIVATED.toString() : UserStatus.ACTIVATED.toString());
-        if (activationRequired) {
-            mailService.sendActivationMail(accessToken.getUserId());
-        }
-
+        UserAccessTokenModel accessToken = userControllerService.registerUser(request, UserStatus.ACTIVATED.toString());
         LoginResponseDecorators.decorateToAddUserAccessToken(response, accessToken);
         return this.modelToResponseConverter.toRegisterResponse(accessToken);
     }

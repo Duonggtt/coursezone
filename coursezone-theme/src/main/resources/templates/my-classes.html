@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:ezy="http://www.ezyplatform.com/thymeleaf/layout"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{ezytheme}">
+<head>
+    <meta charset="UTF-8">
+    <title>My Classes</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <!-- Hiển thị danh sách lớp học nếu có -->
+        <div th:if="${classes != null and not #lists.isEmpty(classes)}">
+            <h2>Your Classes:</h2>
+            <ul>
+                <li th:each="class : ${classes}">
+                    <h3 th:text="${class.name}">Class Name</h3>
+                    <p th:text="${class.description}">Class Description</p>
+                    <!-- Thêm các thông tin khác của lớp học tại đây -->
+                </li>
+            </ul>
+        </div>
+
+        <!-- Hiển thị thông báo nếu không có lớp học -->
+        <div th:if="${classes == null or #lists.isEmpty(classes)}">
+            <p th:text="${message}">Bạn chưa có lớp học nào.</p>
+        </div>
+    </div>
+</body>
+</html>

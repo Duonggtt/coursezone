@@ -40,21 +40,6 @@
         </div>
     </nav>
 
-    <!-- Bootstrap Alerts -->
-<!--    <div id="loginAlert" class="alert alert-success alert-dismissible fade d-none" role="alert">-->
-<!--        <span id="loginAlertMessage"></span>-->
-<!--        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>-->
-<!--    </div>-->
-<!--    <div id="errorAlert" class="alert alert-danger alert-dismissible fade d-none" role="alert">-->
-<!--        <span id="errorAlertMessage"></span>-->
-<!--        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>-->
-<!--    </div>-->
-<!--    <div id="logoutAlert" class="alert alert-info alert-dismissible fade d-none" role="alert">-->
-<!--        <span id="logoutAlertMessage"></span>-->
-<!--        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>-->
-<!--    </div>-->
-
-
     <!-- Login/Register Modal -->
     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm">
@@ -175,6 +160,74 @@
             });
     });
 
+    document.getElementById('registerUserForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        var registerData = {
+            displayName: document.getElementById('registerName').value,
+            username: document.getElementById('registerName').value,
+            email: document.getElementById('registerEmail').value,
+            phone: document.getElementById('registerPhone').value,
+            password: document.getElementById('registerPassword').value
+        };
+
+        fetch('/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(registerData)
+        })
+            .then(response => response.json())  // Chuyển đổi phản hồi từ server sang JSON
+            .then(data => {
+                console.log('Success:', data);
+
+                if (data.accessToken) {
+                    // Nếu đăng ký thành công
+                    showAlert('loginAlert', 'loginAlertMessage', 'Registration successful! Please log in.');
+                    setTimeout(function() {
+                        document.getElementById('registerForm').classList.add('d-none');
+                        document.getElementById('loginForm').classList.remove('d-none');
+                    }, 1500);
+                } else {
+                    // Xử lý các lỗi khác
+                    let errorMessage = '';
+
+                    if (data.email === 'duplicated') {
+                        errorMessage += 'Email is already in use. ';
+                    } else if (data.email === 'invalid') {
+                        errorMessage += 'Email is not in a valid format. ';
+                    }
+
+                    if (data.username === 'duplicated') {
+                        errorMessage += 'Username is already taken. ';
+                    } else if (data.username === 'invalid') {
+                        errorMessage += 'Username is not in a valid format. ';
+                    }
+
+                    if (data.phone === 'invalid') {
+                        errorMessage += 'Phone number is not in a valid format. ';
+                    }
+
+                    if (data.password === 'invalid') {
+                        errorMessage += 'Password does not meet the security requirements. ';
+                    }
+
+                    // Hiển thị thông báo lỗi nếu có lỗi
+                    if (errorMessage) {
+                        showAlert('errorAlert', 'errorAlertMessage', 'Registration failed: ' + errorMessage);
+                    } else {
+                        // Trường hợp lỗi khác không xác định
+                        showAlert('errorAlert', 'errorAlertMessage', 'Registration failed: Please try again.');
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showAlert('errorAlert', 'errorAlertMessage', 'An error occurred during registration.');
+            });
+    });
+
     // Handle logout
     document.getElementById('logout').addEventListener('click', function() {
         // Hiển thị thông báo đăng xuất thành công
@@ -222,6 +275,32 @@
     document.getElementById('showLoginForm').addEventListener('click', function() {
         document.getElementById('registerForm').classList.add('d-none');
         document.getElementById('loginForm').classList.remove('d-none');
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const currentUrl = window.location.pathname;
+        const content = document.querySelector('body'); // Lấy phần tử body hoặc phần tử content nếu có
+
+        // Kiểm tra nếu đường dẫn là trang contact-us
+        if (currentUrl === '/contact-us') {
+            content.style.marginTop = '100px'; // Điều chỉnh khoảng cách này theo nhu cầu
+        }
+
+        // Đổi màu chữ của các link và logo thành màu đen cho about-us và contact-us
+        const navLinks = document.querySelectorAll('.nav-link');
+        const logo = document.querySelector('.navbar-brand');
+        if (currentUrl === '/about-us' || currentUrl === '/contact-us') {
+            navLinks.forEach(function(link) {
+                link.style.color = 'black'; // Đổi màu chữ thành đen
+            });
+            logo.style.color = 'black'; // Đổi màu logo thành đen
+        } else {
+            // Thiết lập lại màu chữ mặc định cho các trang khác
+            navLinks.forEach(function(link) {
+                link.style.color = ''; // Trả về màu mặc định
+            });
+            logo.style.color = ''; // Trả về màu logo mặc định
+        }
     });
 </script>
 
